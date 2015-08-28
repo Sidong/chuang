@@ -40,6 +40,29 @@ body {
       padding-right: 25px;
       cursor: pointer; }
 
+.indicator {
+  width: 7px;
+  height: 196px;
+  position: absolute;
+  top: 50%;
+  right: 64px;
+  margin-top: -98px;
+  z-index: 999;
+  padding-top: 50px;
+  border-right: 1px solid #a0a0a0; }
+  .indicator .point {
+    width: 15px;
+    height: 15px;
+    background-color: #A0A0A0;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin-bottom: 13px;
+    cursor: pointer; }
+    .indicator .point.active {
+      border: 1px solid #000;
+      background-color: #FFF; }
+
 .page1 {
   background-image: url("../images/index_bg.jpg");
   background-size: 100% 70%;
