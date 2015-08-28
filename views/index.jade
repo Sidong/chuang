@@ -1,0 +1,126 @@
+doctype html
+html(lang="zh-cn")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+		meta(name="renderer", content="webkit")
+		meta(name="author", content="WlliTeam")
+		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+		title 创次方
+		link(href="./stylesheets/jquery.fullPage.css", rel="stylesheet")
+		link(href="./stylesheets/animate.css", rel="stylesheet")
+		link(href="./stylesheets/main.css", rel="stylesheet")
+	body
+		div.navbar
+			div.container.horizontal-center
+				div.menu
+					a 李嘉诚
+					span |
+					a 退出
+				div.logo.horizontal-center
+		div#fullpage
+			div.section.page1
+				div.container.horizontal-center
+					div.title1.horizontal-center
+					div.team-btn.horizontal-center
+					div.faces.horizontal-center.clearfix
+						div.w200h200.face-1.animated.bounceInLeft
+						div.w200h200.name-1.animated.bounceInLeft
+						div.w200h200.face-3.animated.bounceInUp
+						div.w200h200.name-4.animated.bounceInRight
+						div.w200h200.face-4.animated.bounceInRight
+						div.w200h200.name-2.animated.bounceInLeft
+						div.w200h200.face-2.animated.bounceInLeft
+						div.w200h200.name-3.animated.bounceInUp
+						div.w200h200.face-5.animated.bounceInRight
+						div.w200h200.name-5.animated.bounceInRight
+					div.support.horizontal-center
+						div.thank-you
+						div.info
+							ul
+								li 投资顾问：09届 金伟娜 中山大学经济学与工商管理学双学士，香港大学经济学硕士，中投证券投资银行总部项目经理
+								li 法律支持：06届 柯立坤 中国政法大学法学，执业律师
+								li 会计支持：09届 林妍希 新加坡管理大学会计专业
+								li 技术支持：09届 黄思东 中山大学软件工程学士，广州唯厘信息科技有限公司项目经理
+			div.section
+				div.container.horizontal-center
+					div.page2.horizontal-center
+						div.title2.horizontal-center
+						div.info
+							p 我们正在搭建一个基于汕头市金山中学校友圈的半熟人关系、同时具备融资功能和媒体功能的互联网创业聚合平台；
+							p 以专业、独到的视角采编报道金山中学校友故事和互联网创业资讯，助你掌握圈子里的优质人脉资源和创业情报；
+							p 以“互联网股权融资”的形式为优质互联网创业项目和普通用户提供专业的第三方融资平台和服务。
+							p.heavy 期待与你一起创造更多！
+						div.news-intv-fina.horizontal-center
+							div.block
+								img(src="./images/news.png")
+								p.offset-top 多向探索发现
+								p 紧随互联新潮
+							div.block.interview
+								img(src="./images/interview.png")
+								p.offset-top 独家专业解析
+								p 筛选优质项目
+							div.block
+								img(src="./images/financing.png")
+								p.offset-top 整合多维资源
+								p 创造次方价值
+			div.section.grey-bg
+				div.container.horizontal-center
+					div.page3
+						div.three-block.horizontal-center
+							div.m50w.block
+							div.lingtou.block
+							div.shuren.block
+						div.title3.horizontal-center
+						div.takein-btn.horizontal-center
+						div.facebook.horizontal-center
+			div.section
+				div.container.horizontal-center
+					div.page4
+						div.teacher.horizontal-center
+			div.section.grey-bg
+				div.container.horizontal-center
+					div.page5
+						div.contact.horizontal-center
+	script(src='./javascripts/jquery.min.js')
+	script(src='./javascripts/jquery.fullPage.min.js')
+	script(type='text/javascript').
+		$(document).ready(function () {
+			$('.page2').hide()
+			$('.page3').hide()
+			$('.page4').hide()
+			$('.page5').hide()
+			$('#fullpage').fullpage({
+				afterLoad: function (anchorLink, index) {
+					var loadedSection = $(this);
+					if (index == 2) {
+						$('.page2').fadeIn();
+					}
+					if (index == 3) {
+						$('.page3').fadeIn();
+					}
+					if (index == 4) {
+						$('.page4').fadeIn();
+					}
+					if (index == 5) {
+						$('.page5').fadeIn();
+					}
+				},
+				onLeave: function(index, nextIndex, direction){
+					var leavingSection = $(this);
+					if (index == 2 && (direction =='down' || 'up')) {
+						$('.page2').fadeOut();
+					}
+					if (index == 3 && (direction =='down' || 'up')) {
+						$('.page3').fadeOut();
+					}
+					if (index == 4 && (direction =='down' || 'up')) {
+						$('.page4').fadeOut();
+					}
+					if (index == 5 && (direction =='down' || 'up')) {
+						$('.page5').fadeOut();
+					}
+				}
+			});
+		});
