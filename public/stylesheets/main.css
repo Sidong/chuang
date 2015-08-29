@@ -63,124 +63,91 @@ body {
       border: 1px solid #000;
       background-color: #FFF; }
 
-.page1 {
+.page1 .fp-tableCell {
+  vertical-align: top; }
+.page1 .wrapper {
   background-image: url("../images/index_bg.jpg");
-  background-size: 100% 70%;
+  background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 40px; }
-  .page1 .title1 {
-    width: 878px;
-    height: 149px;
-    background-image: url("../images/part1_title.png");
+  padding-top: 175px;
+  padding-bottom: 45px; }
+.page1 .title1 {
+  width: 878px;
+  height: 149px;
+  background-image: url("../images/part1_title.png");
+  background-size: cover; }
+.page1 .team-btn {
+  margin-top: 20px;
+  width: 498px;
+  height: 45px;
+  background-image: url("../images/team_btn.png");
+  background-size: cover;
+  cursor: pointer;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s; }
+  .page1 .team-btn:hover {
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px; }
+.page1 .faces {
+  width: 1000px;
+  margin-top: 52px; }
+  .page1 .faces .face {
+    width: 160px;
+    display: inline-block;
+    text-align: center; }
+    .page1 .faces .face:hover .field {
+      opacity: 1.0; }
+    .page1 .faces .face img {
+      -moz-animation-delay: 1s;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s; }
+    .page1 .faces .face .name {
+      margin-top: 25px;
+      font-size: 18px;
+      line-height: 18px;
+      color: #000; }
+    .page1 .faces .face .field {
+      margin-top: 7px;
+      opacity: 0;
+      -moz-transition-property: all;
+      -o-transition-property: all;
+      -webkit-transition-property: all;
+      transition-property: all;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s; }
+    .page1 .faces .face:nth-child(2), .page1 .faces .face:nth-child(4) {
+      margin-left: 48px;
+      margin-right: 48px; }
+.page1 .support {
+  margin-top: 16px;
+  width: 1000px;
+  height: 90px; }
+  .page1 .support .thank-you {
+    margin-left: 56px;
+    width: 162px;
+    height: 83px;
+    display: inline-block;
+    background-image: url("../images/thankyou.png");
     background-size: cover; }
-  .page1 .team-btn {
-    margin-top: 20px;
-    width: 498px;
-    height: 45px;
-    background-image: url("../images/team_btn.png");
-    background-size: cover;
-    cursor: pointer;
-    -moz-transition-property: all;
-    -o-transition-property: all;
-    -webkit-transition-property: all;
-    transition-property: all;
-    -moz-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s; }
-    .page1 .team-btn:hover {
-      -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
-      -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px; }
-  .page1 .faces {
-    width: 1000px;
-    height: 400px;
-    margin-top: 36px; }
-    .page1 .faces .w200h200 {
-      width: 200px;
-      height: 200px;
-      float: left; }
-    .page1 .faces .face-1 {
-      background-image: url("../images/img_1.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .name-1 {
-      background-image: url("../images/name_1.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .face-2 {
-      background-image: url("../images/img_2.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .name-2 {
-      background-image: url("../images/name_2.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .face-3 {
-      background-image: url("../images/img_3.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .name-3 {
-      background-image: url("../images/name_3.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .face-4 {
-      background-image: url("../images/img_4.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .name-4 {
-      background-image: url("../images/name_4.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .face-5 {
-      background-image: url("../images/img_5.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-    .page1 .faces .name-5 {
-      background-image: url("../images/name_5.jpg");
-      background-size: cover;
-      -moz-animation-delay: 1s;
-      -webkit-animation-delay: 1s;
-      animation-delay: 1s; }
-  .page1 .support {
-    margin-top: 16px;
-    width: 1000px;
-    height: 90px; }
-    .page1 .support .thank-you {
-      margin-left: 56px;
-      width: 162px;
-      height: 83px;
-      display: inline-block;
-      background-image: url("../images/thankyou.png");
-      background-size: cover; }
-    .page1 .support .info {
-      display: inline-block;
-      width: 700px;
-      padding-left: 24px; }
-      .page1 .support .info li {
-        list-style: none;
-        color: #888888;
-        font-size: 12px;
-        font-family: "Microsoft YaHei";
-        line-height: 1.8; }
+  .page1 .support .info {
+    display: inline-block;
+    width: 700px;
+    padding-left: 24px; }
+    .page1 .support .info li {
+      list-style: none;
+      color: #888888;
+      font-size: 12px;
+      font-family: "Microsoft YaHei";
+      line-height: 1.8; }
 
 .page2 {
   width: 852px;
@@ -248,8 +215,8 @@ body {
       display: inline-block;
       width: 270px;
       height: 303px; }
-    .page3 .three-block .m50w {
-      background-image: url("../images/50w.png");
+    .page3 .three-block .m100y {
+      background-image: url("../images/100y.png");
       background-size: cover; }
     .page3 .three-block .lingtou {
       background-image: url("../images/lingtou.png");
@@ -310,11 +277,33 @@ body {
   background-color: #EFEFEF; }
 
 @media (max-width: 1440px) {
+  .page1 .wrapper {
+    padding-top: 75px;
+    padding-bottom: 0px; }
+
   .container {
     -moz-transform: scale(0.75, 0.75);
     -ms-transform: scale(0.75, 0.75);
     -webkit-transform: scale(0.75, 0.75);
     transform: scale(0.75, 0.75); }
+
+  .navbar {
+    top: 20px; } }
+@media (max-width: 960px) {
+  .container {
+    -moz-transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.5, 0.5);
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5); }
+
+  .navbar {
+    top: 20px; } }
+@media (max-width: 700px) {
+  .container {
+    -moz-transform: scale(0.4, 0.4);
+    -ms-transform: scale(0.4, 0.4);
+    -webkit-transform: scale(0.4, 0.4);
+    transform: scale(0.4, 0.4); }
 
   .navbar {
     top: 20px; } }

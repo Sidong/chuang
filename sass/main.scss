@@ -79,10 +79,18 @@ body {
 }
 
 .page1 {
-	background-image: url("../images/index_bg.jpg");
-	background-size: 100% 70%;
-	background-repeat: no-repeat;
-	padding-top: 40px;
+	
+	.fp-tableCell {
+		vertical-align: top;
+	}
+
+	.wrapper {
+		background-image: url("../images/index_bg.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		padding-top: 175px;
+		padding-bottom: 45px;
+	}
 
 	.title1 {
 		width: 878px;
@@ -109,25 +117,40 @@ body {
 
 	.faces {
 		width: 1000px;
-		height: 400px;
-		margin-top: 36px;
+		margin-top: 52px;
 
-		.w200h200 {
-			width: 200px;
-			height: 200px;
-			float: left;
-		}
+		.face {
+			width: 160px;
+			display: inline-block;
+			text-align: center;
 
-		@for $i from 1 through 5 {
-  			.face-#{$i} {
-				background-image: url("../images/img_#{$i}.jpg");
-				background-size: cover;
+			&:hover {
+				.field {
+					opacity: 1.0;
+				}
+			}
+
+			img {
 				@include animation-delay(1s);
 			}
-			.name-#{$i} {
-				background-image: url("../images/name_#{$i}.jpg");
-				background-size: cover;
-				@include animation-delay(1s);
+
+			.name {
+				margin-top: 25px;
+				font-size: 18px;
+				line-height: 18px;
+				color: #000;
+			}
+
+			.field {
+				margin-top: 7px;
+				opacity: 0;
+				@include transition-property(all);
+        		@include transition-duration(0.3s);
+			}
+
+			&:nth-child(2), &:nth-child(4) {
+				margin-left: 48px;
+				margin-right: 48px;
 			}
 		}
 	}
@@ -236,8 +259,8 @@ body {
 			width: 270px;
 			height: 303px;
 		}
-		.m50w {
-			background-image: url("../images/50w.png");
+		.m100y {
+			background-image: url("../images/100y.png");
 			background-size: cover;
 		}
 		.lingtou {
@@ -309,11 +332,33 @@ body {
 	background-color: #EFEFEF;
 }
 
-
-
 @media (max-width: 1440px) {
+	.page1 {
+		.wrapper {
+			padding-top: 75px;
+			padding-bottom: 0px;
+		}
+	}
 	.container {
 		@include scale(0.75);
+	}
+	.navbar {
+		top: 20px;
+	}
+}
+
+@media (max-width: 960px) {
+	.container {
+		@include scale(0.5);
+	}
+	.navbar {
+		top: 20px;
+	}
+}
+
+@media (max-width: 700px) {
+	.container {
+		@include scale(0.4);
 	}
 	.navbar {
 		top: 20px;
