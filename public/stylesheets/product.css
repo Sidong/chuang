@@ -1,0 +1,271 @@
+body {
+  background-color: #FFF;
+  font-family: "Microsoft YaHei";
+  font-size: 14px; }
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none; }
+
+.container {
+  width: 1000px; }
+
+.horizontal-center {
+  margin-left: auto;
+  margin-right: auto; }
+
+.banner {
+  max-width: 1920px;
+  width: 100%;
+  height: 300px;
+  background-image: url("../images/banner_bg.png");
+  background-size: cover;
+  background-position: 50% 0%; }
+  .banner .container {
+    position: relative;
+    padding-top: 27px; }
+    .banner .container .logo {
+      width: 76px;
+      height: 94px;
+      background-image: url("../images/logo.png");
+      background-size: cover; }
+    .banner .container .left {
+      width: 120px;
+      height: 36px;
+      position: absolute;
+      left: 40px;
+      top: 27px; }
+      .banner .container .left .back {
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        background-image: url("../images/back_btn.png");
+        background-size: cover; }
+      .banner .container .left a {
+        text-decoration: none;
+        color: #444;
+        vertical-align: top;
+        font-size: 14px;
+        margin-left: 13px;
+        line-height: 36px; }
+    .banner .container .right {
+      width: 200px;
+      height: 36px;
+      position: absolute;
+      right: 40px;
+      top: 28px;
+      text-align: right; }
+      .banner .container .right .signup, .banner .container .right .login {
+        text-align: center;
+        line-height: 36px;
+        display: inline-block;
+        width: 70px;
+        height: 36px;
+        border: 1px solid #444;
+        margin-left: 12px;
+        cursor: pointer; }
+        .banner .container .right .signup:hover, .banner .container .right .login:hover {
+          background-color: #444;
+          color: #fff; }
+
+.news {
+  padding-top: 130px; }
+  .news .container {
+    position: relative; }
+  .news .icon {
+    width: 206px;
+    height: 206px;
+    position: absolute;
+    top: -130px;
+    left: 0;
+    background-image: url("../images/product_news.png");
+    background-size: cover; }
+  .news .text {
+    display: inline-block;
+    margin-left: 173px;
+    width: 410px;
+    vertical-align: top; }
+    .news .text .title {
+      font-size: 14px;
+      color: #555; }
+    .news .text .info {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+      line-height: 1.5;
+      margin-bottom: 44px; }
+    .news .text .block {
+      width: 100px;
+      display: inline-block;
+      text-align: center;
+      margin-right: 80px; }
+      .news .text .block p {
+        margin-top: 12px;
+        color: #888;
+        font-size: 14px; }
+  .news .image {
+    display: inline-block;
+    width: 390px;
+    height: 313px;
+    margin-left: 26px;
+    background-image: url("../images/holder_img.png");
+    background-size: cover; }
+
+.interview {
+  margin-top: 87px;
+  padding-top: 60px; }
+  .interview .container {
+    position: relative; }
+  .interview .icon {
+    width: 205px;
+    height: 205px;
+    position: absolute;
+    top: -60px;
+    right: 0;
+    background-image: url("../images/product_interview.png");
+    background-size: cover; }
+  .interview .image {
+    display: inline-block;
+    width: 390px;
+    height: 313px;
+    background-image: url("../images/holder_img.png");
+    background-size: cover; }
+  .interview .wrapper {
+    display: inline-block;
+    width: 583px;
+    margin-left: 27px;
+    vertical-align: top; }
+    .interview .wrapper .text {
+      display: inline-block;
+      width: 362px; }
+      .interview .wrapper .text .title {
+        font-size: 14px;
+        color: #555; }
+      .interview .wrapper .text .info {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #888;
+        line-height: 1.5; }
+    .interview .wrapper .dashen {
+      width: 583px;
+      margin-top: 30px; }
+      .interview .wrapper .dashen .avator {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        background-size: cover; }
+      .interview .wrapper .dashen .block {
+        display: inline-block;
+        width: 183px;
+        height: 100px; }
+      .interview .wrapper .dashen .zhangyi {
+        background-image: url("../images/zhangyi.png");
+        background-size: cover; }
+      .interview .wrapper .dashen .chendi {
+        background-image: url("../images/chendi.png");
+        background-size: cover;
+        margin-left: 10px;
+        margin-right: 10px; }
+      .interview .wrapper .dashen .anni {
+        background-image: url("../images/anni.png");
+        background-size: cover; }
+
+.financing {
+  padding-top: 180px;
+  margin-top: 87px; }
+  .financing .container {
+    position: relative; }
+  .financing .icon {
+    width: 206px;
+    height: 206px;
+    position: absolute;
+    top: -180px;
+    left: 0;
+    background-image: url("../images/product_financing.png");
+    background-size: cover; }
+  .financing .text {
+    display: inline-block;
+    margin-left: 173px;
+    width: 410px;
+    vertical-align: top; }
+    .financing .text .title {
+      font-size: 14px;
+      color: #555; }
+    .financing .text .info {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+      line-height: 1.5;
+      margin-bottom: 44px; }
+  .financing .image {
+    display: inline-block;
+    width: 390px;
+    height: 313px;
+    margin-left: 26px;
+    margin-top: -48px;
+    background-image: url("../images/holder_img.png");
+    background-size: cover; }
+  .financing .block {
+    margin-top: 38px; }
+    .financing .block .block-1 {
+      margin-left: 160px;
+      display: inline-block;
+      width: 180px; }
+    .financing .block .block-2 {
+      margin-left: 100px;
+      display: inline-block;
+      width: 250px; }
+    .financing .block .block-3 {
+      margin-left: 80px;
+      display: inline-block;
+      width: 230px; }
+    .financing .block .title {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 14px;
+      color: #555; }
+    .financing .block .info {
+      margin-top: 10px;
+      font-size: 12px;
+      font-size: 12px;
+      color: #888; }
+
+.team .member-1 {
+  margin-top: 48px;
+  width: 997px;
+  height: 232px;
+  background-image: url("../images/member_1.png");
+  background-size: cover; }
+.team .member-2 {
+  margin-top: 79px;
+  width: 998px;
+  height: 278px;
+  background-image: url("../images/member_2.png");
+  background-size: cover; }
+.team .member-3 {
+  margin-top: 79px;
+  width: 997px;
+  height: 247px;
+  background-image: url("../images/member_3.png");
+  background-size: cover; }
+.team .member-4 {
+  margin-top: 62px;
+  width: 990px;
+  height: 244px;
+  background-image: url("../images/member_4.png");
+  background-size: cover; }
+.team .member-5 {
+  margin-top: 115px;
+  width: 997px;
+  height: 251px;
+  background-image: url("../images/member_5.png");
+  background-size: cover; }
+
+.contact {
+  margin-top: 147px;
+  margin-bottom: 125px;
+  width: 432px;
+  height: 347px;
+  background-image: url("../images/contact.png");
+  background-size: cover; }
