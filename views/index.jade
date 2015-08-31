@@ -13,7 +13,7 @@ html(lang="zh-cn")
 		link(href="./stylesheets/main.css", rel="stylesheet")
 		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
-		div.dialog.active
+		//- div.dialog.active
 			div.card
 				div.close-btn
 				div.title.join
@@ -28,11 +28,6 @@ html(lang="zh-cn")
 						div.form-line
 							p.label 邮 箱
 							input.input.wrong(name="username", type="text", placeholder="您在创次方的名号")
-						div.form-line
-							p.label
-							input(type="radio", name="status", value="机构投资人")
-							input(type="radio", name="status", value="公司投资并购部")
-							input(type="radio", name="status", value="个人投资人")
 						button.btn 注册
 					p.wrong-msg 你填写的邮箱已被注册过，赶紧登录吧！
 					p.link 已有创次方帐号？登录
@@ -133,10 +128,10 @@ html(lang="zh-cn")
 	script(src='./javascripts/jquery.fullPage.min.js')
 	script(type='text/javascript').
 		$(document).ready(function () {
-			$('.page2').hide()
-			$('.page3').hide()
-			$('.page4').hide()
-			$('.page5').hide()
+			$('.page2').hide();
+			$('.page3').hide();
+			$('.page4').hide();
+			$('.page5').hide();
 			$('#fullpage').fullpage({
 				afterLoad: function (anchorLink, index) {
 					var loadedSection = $(this);
