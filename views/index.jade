@@ -11,7 +11,35 @@ html(lang="zh-cn")
 		link(href="./stylesheets/jquery.fullPage.css", rel="stylesheet")
 		link(href="./stylesheets/animate.css", rel="stylesheet")
 		link(href="./stylesheets/main.css", rel="stylesheet")
+		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
+		div.dialog.active
+			div.card
+				div.close-btn
+				div.title.join
+				//- div.title.login
+				//- div.title.fill
+				//- div.title.invest
+				div.form
+					form
+						div.form-line
+							p.label 用户名
+							input.input(name="username", type="text", placeholder="您在创次方的名号")
+						div.form-line
+							p.label 邮 箱
+							input.input.wrong(name="username", type="text", placeholder="您在创次方的名号")
+						div.form-line
+							p.label
+							input(type="radio", name="status", value="机构投资人")
+							input(type="radio", name="status", value="公司投资并购部")
+							input(type="radio", name="status", value="个人投资人")
+						button.btn 注册
+					p.wrong-msg 你填写的邮箱已被注册过，赶紧登录吧！
+					p.link 已有创次方帐号？登录
+				//- div.done
+					div.done-img
+					p.success-text 注册成功
+					p.more-text 您的跟投人认证申请已提交，创次方工作人员将会在3个工作日内联系您
 		div.navbar
 			div.container.horizontal-center
 				div.menu
