@@ -14,12 +14,17 @@
 		display: block;
 	}
 
+	.card.up-offset {
+		margin-top: 5%;
+	}
+
 	.card {
 		margin: auto;
 		margin-top: 10%;
 		width: 600px;
 		background-color: #FFF;
 		padding-top: 20px;
+		z-index: 999;
 
 		.title {
 			margin-left: 20px;
