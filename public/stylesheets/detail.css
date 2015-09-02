@@ -67,7 +67,9 @@ body {
         height: 36px;
         border: 1px solid #444;
         margin-left: 12px;
-        cursor: pointer; }
+        cursor: pointer;
+        text-decoration: none;
+        color: #444; }
         .banner .container .right .signup:hover, .banner .container .right .login:hover {
           background-color: #444;
           color: #fff; }
