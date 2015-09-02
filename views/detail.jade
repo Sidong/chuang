@@ -232,17 +232,19 @@ html(lang="zh-cn")
 		});
 		var isFillInfo = #{isFillInfo};
 		function checkFillInfo(money,gradientId){
-			var user = "#{user}";
-			if(user==""){
-				login();
-			}else{
-				if(!isFillInfo){
-					fillInfo();
-					$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
-				}else{
-					certain(money,parseInt("#{amount}")*10000,"#{projectId}",gradientId);
-				}
-			}
+			$.ajax({
+					type:"GET",
+					url:"/isFollow?projectId="+"#{projectId}",
+					dataType:"json",
+					success:function(data){
+						alert(data.isFollow);
+						if(data.isFollow){
+							alert("您已提交过认投申请，一个跟投人只能认投一个投资梯度哦，如有疑问，请发送邮件至 chuangcifang@126.com 联系我们！");
+						}else{
+							certain(money,parseInt("#{amount}")*10000,"#{projectId}",gradientId);
+						}
+					}
+				});
 		};
 		function toTouZi(){
 			$('html,body').animate({scrollTop:$("#tidu-0").offset().top}, 800);

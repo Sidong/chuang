@@ -4,6 +4,8 @@ var config = require('../config');
 var AV = require('avoscloud-sdk').AV;
 AV.initialize(config.AvosAppID,config.AvosAppkey);
 var User = AV.Object.extend("_User");
+var Project = AV.Object.extend("Project");
+var ProjectFollow = AV.Object.extend("ProjectFollow");
 router.get('/',function(req,res,next){
 	res.render('index');
 })
@@ -184,6 +186,31 @@ router.get("/getVerify",function(req,res,next){
 				res.end();
 			}
 		});
+	}
+});
+
+router.get("/isFollow",function(req,res,next){
+	var user = req.session.user;
+	if(user!=null){
+		var query = new AV.Query(ProjectFollow);
+		var projectId = req.query.projectId;
+		var project = new Project();
+		var userObj = new User();
+		userObj.id = user.objectId;
+		project.id = projectId;
+		query.equalTo("projectId",project);
+		query.equalTo("userId",userObj);
+		query.find({
+			success:function(data){
+				if(data.length<=0){
+					res.json({isFollow:false});
+					res.end();
+				}else{
+					res.json({isFollow:true});
+					res.end();
+				}
+			}
+		})
 	}
 });
 module.exports = router;
