@@ -58,11 +58,11 @@
         margin-top: 15px; }
         .dialog .card .form .form-line .label {
           text-align: right;
-          width: 80px;
+          width: 90px;
           height: 40px;
           display: inline-block;
           font-family: "Microsoft YaHei";
-          margin-right: 20px; }
+          margin-right: 10px; }
           .dialog .card .form .form-line .label::after {
             content: "："; }
         .dialog .card .form .form-line .input {
@@ -123,21 +123,6 @@
         line-height: 40px;
         text-align: center;
         cursor: pointer; }
-      .dialog .card .form .wrong-msg {
-        margin-top: 21px;
-        font-size: 11px;
-        line-height: 20px;
-        color: #ea5513;
-        text-align: center; }
-        .dialog .card .form .wrong-msg::before {
-          content: '';
-          width: 20px;
-          height: 20px;
-          display: inline-block;
-          margin-right: 6px;
-          background-image: url("../images/red_close.png");
-          background-size: cover;
-          vertical-align: top; }
       .dialog .card .form .link {
         display: block;
         margin-top: 17px;
@@ -147,6 +132,21 @@
         color: #58bddb;
         text-align: center;
         cursor: pointer; }
+    .dialog .card .wrong-msg {
+      margin-top: 21px;
+      font-size: 11px;
+      line-height: 20px;
+      color: #ea5513;
+      text-align: center; }
+      .dialog .card .wrong-msg::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        margin-right: 6px;
+        background-image: url("../images/red_close.png");
+        background-size: cover;
+        vertical-align: top; }
     .dialog .card .done {
       margin-top: 80px;
       padding-bottom: 72px; }
