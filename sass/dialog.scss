@@ -57,13 +57,13 @@
 		}
 
 		.form {
-			width: 400px;
+			width: 430px;
 			margin-top: 50px;
 			padding-bottom: 55px;
 			margin-left: auto;
 			margin-right: auto;
 			.form-line {
-				width: 400px;
+				width: 430px;
 				height: 40px;
 				margin-top: 15px;
 				.label {
@@ -75,9 +75,10 @@
 					height: 40px;
 					display: inline-block;
 					font-family: "Microsoft YaHei";
+					margin-right: 20px;
+
 				}
 				.input {
-					margin-left: 20px;
 					line-height: 38px;
 					width: 288px;
 					height: 40px;
@@ -86,6 +87,54 @@
 					border: 1px solid #000;
 					&.wrong {
 						border: 1px solid #ea5513;
+					}
+				}
+				
+			}
+			.form-line2 {
+				width: 430px;
+				height: 20px;
+				margin-top: 22px;
+				.label {
+					&::after {
+						content: "：";
+					}
+					text-align: right;
+					width: 80px;
+					height: 40px;
+					display: inline-block;
+					font-family: "Microsoft YaHei";
+					margin-right: 20px;
+				}
+				.radio-text {
+					font-size: 13px;
+					content: #000;
+					margin-left: 6px;
+					margin-right: 22px;
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+			}
+			.form-line3 {
+				margin-top: 22px;
+				p {
+					font-size: 14px;
+					color: #000;
+				}
+				.radio-div {
+					margin-left: 100px;
+					div {
+						margin-top: 15px;
+					}
+					.radio-text {
+						font-size: 13px;
+						content: #000;
+						margin-left: 6px;
+						margin-right: 24px;
+						&:last-child {
+							margin-right: 0;
+						}
 					}
 				}
 			}
@@ -157,8 +206,127 @@
 				margin-top: 36px;
 			}
 		}
+		.apply {
+			margin-top: 50px;
+			margin-left: auto;
+			margin-right: auto;
+			padding-bottom: 55px;
+			width: 440px;
+			.outter-border {
+				width: 100%;
+				border: 1px double black;
+				padding: 4px;
+				.inner-border {
+					text-align: center;
+					border: 1px double black;
+					.text {
+						margin-top: 20px;
+						font-family: "Microsoft YaHei";
+						font-size: 12px;
+						line-height: 12px;
+						color: #000;
+					}
+					.count {
+						margin-top: 8px;
+						font-family: "Microsoft YaHei";
+						font-size: 52px;
+						line-height: 52px;
+						color: #000;
+						&::before {
+							content: '￥';
+							font-size: 18px;
+						}
+					}
+				}
+			}
+			.info {
+				text-align: center;
+				margin-top: 26px;
+				.line-1 {
+					font-size: 18px;
+					color: #888;
+				}
+				.line-2 {
+					margin-top: 15px;
+					font-size: 14px;
+					color: #888;
+				}
+			}
+			.agreements {
+				margin-top: 40px;
+				font-size: 12px;
+				a {
+					color: #000;
+				}
+				.agreement {
+					margin-bottom: 8px;
+					display: inline-block;
+					width: 15px;
+					position: relative;
+					margin-right: 15px;
+					label {
+						border: 1px solid #000;
+						width: 15px;
+						height: 15px;
+						cursor: pointer;
+						position: absolute;
+						top: 0;
+						left: 0;
+						background: linear-gradient(top, #fff 0%, #fff 100%);
+						&:after {
+							content: '';
+							width: 9px;
+							height: 5px;
+							position: absolute;
+							top: 2px;
+							left: 2px;
+							border: 3px solid #000;
+							border-top: none;
+							border-right: none;
+							background: transparent;
+							opacity: 0;
+							transform: rotate(-45deg);
+						}
+						&:hover::after {
+							opacity: 0.3;
+						}
+					}
+					input[type=checkbox] {
+						visibility: hidden;
+						&:checked + label:after {
+							opacity: 1;
+						}    
+					}
+				}
+				p.line {
+					width: 200px;
+					display: inline-block;
+				}
+			}
+			.btn {
+				text-decoration: none;
+				display: block;
+				margin-top: 35px;
+				margin-left: auto;
+				margin-right: auto;
+				width: 165px;
+				height: 40px;
+				background-color: #58bddb;
+				font-size: 18px;
+				color: #fff;
+				line-height: 40px;
+				text-align: center;
+				cursor: pointer;
+			}
+		}
 	}
-}	
+}
+
+
+
+.black {
+	color: #000;
+}
 
 ::-webkit-input-placeholder {
 	color: #999;

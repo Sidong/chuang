@@ -44,13 +44,13 @@
       background-size: cover;
       cursor: pointer; }
     .dialog .card .form {
-      width: 400px;
+      width: 430px;
       margin-top: 50px;
       padding-bottom: 55px;
       margin-left: auto;
       margin-right: auto; }
       .dialog .card .form .form-line {
-        width: 400px;
+        width: 430px;
         height: 40px;
         margin-top: 15px; }
         .dialog .card .form .form-line .label {
@@ -58,11 +58,11 @@
           width: 80px;
           height: 40px;
           display: inline-block;
-          font-family: "Microsoft YaHei"; }
+          font-family: "Microsoft YaHei";
+          margin-right: 20px; }
           .dialog .card .form .form-line .label::after {
             content: "："; }
         .dialog .card .form .form-line .input {
-          margin-left: 20px;
           line-height: 38px;
           width: 288px;
           height: 40px;
@@ -71,6 +71,42 @@
           border: 1px solid #000; }
           .dialog .card .form .form-line .input.wrong {
             border: 1px solid #ea5513; }
+      .dialog .card .form .form-line2 {
+        width: 430px;
+        height: 20px;
+        margin-top: 22px; }
+        .dialog .card .form .form-line2 .label {
+          text-align: right;
+          width: 80px;
+          height: 40px;
+          display: inline-block;
+          font-family: "Microsoft YaHei";
+          margin-right: 20px; }
+          .dialog .card .form .form-line2 .label::after {
+            content: "："; }
+        .dialog .card .form .form-line2 .radio-text {
+          font-size: 13px;
+          content: #000;
+          margin-left: 6px;
+          margin-right: 22px; }
+          .dialog .card .form .form-line2 .radio-text:last-child {
+            margin-right: 0; }
+      .dialog .card .form .form-line3 {
+        margin-top: 22px; }
+        .dialog .card .form .form-line3 p {
+          font-size: 14px;
+          color: #000; }
+        .dialog .card .form .form-line3 .radio-div {
+          margin-left: 100px; }
+          .dialog .card .form .form-line3 .radio-div div {
+            margin-top: 15px; }
+          .dialog .card .form .form-line3 .radio-div .radio-text {
+            font-size: 13px;
+            content: #000;
+            margin-left: 6px;
+            margin-right: 24px; }
+            .dialog .card .form .form-line3 .radio-div .radio-text:last-child {
+              margin-right: 0; }
       .dialog .card .form .btn {
         display: block;
         margin-top: 32px;
@@ -130,6 +166,103 @@
         color: #000;
         text-align: center;
         margin-top: 36px; }
+    .dialog .card .apply {
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 55px;
+      width: 440px; }
+      .dialog .card .apply .outter-border {
+        width: 100%;
+        border: 1px double black;
+        padding: 4px; }
+        .dialog .card .apply .outter-border .inner-border {
+          text-align: center;
+          border: 1px double black; }
+          .dialog .card .apply .outter-border .inner-border .text {
+            margin-top: 20px;
+            font-family: "Microsoft YaHei";
+            font-size: 12px;
+            line-height: 12px;
+            color: #000; }
+          .dialog .card .apply .outter-border .inner-border .count {
+            margin-top: 8px;
+            font-family: "Microsoft YaHei";
+            font-size: 52px;
+            line-height: 52px;
+            color: #000; }
+            .dialog .card .apply .outter-border .inner-border .count::before {
+              content: '￥';
+              font-size: 18px; }
+      .dialog .card .apply .info {
+        text-align: center;
+        margin-top: 26px; }
+        .dialog .card .apply .info .line-1 {
+          font-size: 18px;
+          color: #888; }
+        .dialog .card .apply .info .line-2 {
+          margin-top: 15px;
+          font-size: 14px;
+          color: #888; }
+      .dialog .card .apply .agreements {
+        margin-top: 40px;
+        font-size: 12px; }
+        .dialog .card .apply .agreements a {
+          color: #000; }
+        .dialog .card .apply .agreements .agreement {
+          margin-bottom: 8px;
+          display: inline-block;
+          width: 15px;
+          position: relative;
+          margin-right: 15px; }
+          .dialog .card .apply .agreements .agreement label {
+            border: 1px solid #000;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, #ffffff 0%, #ffffff 100%); }
+            .dialog .card .apply .agreements .agreement label:after {
+              content: '';
+              width: 9px;
+              height: 5px;
+              position: absolute;
+              top: 2px;
+              left: 2px;
+              border: 3px solid #000;
+              border-top: none;
+              border-right: none;
+              background: transparent;
+              opacity: 0;
+              transform: rotate(-45deg); }
+            .dialog .card .apply .agreements .agreement label:hover::after {
+              opacity: 0.3; }
+          .dialog .card .apply .agreements .agreement input[type=checkbox] {
+            visibility: hidden; }
+            .dialog .card .apply .agreements .agreement input[type=checkbox]:checked + label:after {
+              opacity: 1; }
+        .dialog .card .apply .agreements p.line {
+          width: 200px;
+          display: inline-block; }
+      .dialog .card .apply .btn {
+        text-decoration: none;
+        display: block;
+        margin-top: 35px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 165px;
+        height: 40px;
+        background-color: #58bddb;
+        font-size: 18px;
+        color: #fff;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer; }
+
+.black {
+  color: #000; }
 
 ::-webkit-input-placeholder {
   color: #999;
