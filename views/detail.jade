@@ -155,7 +155,7 @@ html(lang="zh-cn")
 				div.time
 				div.iwant
 					div.money
-					p(onclick='checkFillInfo()') 我要投资
+					p(onclick='toTouZi()') 我要投资
 		div.container.horizontal-center
 			div.contact.horizontal-center
 	script(src='./javascripts/jquery.min.js')
@@ -172,7 +172,7 @@ html(lang="zh-cn")
 						var gradients = data.gradients;
 						var n = ["一","二","三","四","五","六","七","八","九","十"];
 						for(var i = 0 ; i<gradients.length;i++){
-							var HTML = "<div class=tidu tidu-"+i+">"+
+							var HTML = "<div class=tidu tidu-"+i+" id=tidu-"+i+">"+
 											"<div class=title>第"+n[i]+"梯度 "+gradients[i].start+"-"+gradients[i].end+"</div>"+
 											"<p class=money>"+
 												"<span class=count>"+gradients[i].money+"</span>"+
@@ -240,3 +240,6 @@ html(lang="zh-cn")
 				}
 			}
 		};
+		function toTouZi(){
+			$('html,body').animate({scrollTop:$("#tidu-0").offset().top}, 800);
+		}
