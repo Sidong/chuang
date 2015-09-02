@@ -12,7 +12,7 @@ html(lang="zh-cn")
 		link(href="./stylesheets/detail.css", rel="stylesheet")
 		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
-		div.dialog.active
+		div.dialog
 			div.card
 				div.close-btn(onclick="cancel()")
 		div.banner
@@ -184,9 +184,13 @@ html(lang="zh-cn")
 												"位投资人"+
 											"</p>"+
 											"<hr>"+
-											"<p class=text>接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集"+
-											"<div class=takein_btn onclick='checkFillInfo(this)'>我要投资</div>"+
-										"</div>";
+											"<p class=text>接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集";
+							if(gradients[i].updatedAt>=2*gradients[i].number){
+								HTML += "<div class='takein_btn disabled'>我要投资</div>";
+							}else{
+								HTML += "<div class=takein_btn onclick='checkFillInfo("+gradients[i].money+",\""+gradients[i].objectId+"\")'>我要投资</div>";
+							}
+							HTML += "</div>";
 							$(".tidus").append(HTML);
 						}
 					}
@@ -223,7 +227,7 @@ html(lang="zh-cn")
 			}
 		});
 		var isFillInfo = #{isFillInfo};
-		function checkFillInfo(){
+		function checkFillInfo(money,gradientId){
 			var user = "#{user}";
 			if(user==""){
 				login();
@@ -232,7 +236,7 @@ html(lang="zh-cn")
 					fillInfo();
 					$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
 				}else{
-					certain();
+					certain(money,parseInt("#{amount}")*10000,"#{projectId}",gradientId);
 				}
 			}
 		};

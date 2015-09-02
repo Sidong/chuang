@@ -1,4 +1,5 @@
 function login() {
+	$('.dialog .card').removeClass("up-offset");
 	$('.dialog .card .close-btn').nextAll().remove();
 	var HTML = 	"<div class='title login'>"+
 				"</div>"+
@@ -24,6 +25,7 @@ function cancel(){
 	$('.dialog').fadeOut();
 };
 function register(){
+	$('.dialog .card').removeClass("up-offset");
 	$('.dialog .card .close-btn').nextAll().remove();
 	var HTML = 	"<div class='title join'>"+
 				"</div>"+
@@ -54,6 +56,7 @@ function register(){
 	$('.dialog').fadeIn();
 };
 function registerSuccess(){
+	$('.dialog .card').removeClass("up-offset");
 	$('.dialog .card .close-btn').nextAll().remove();
 	var HTML = "<div class='done'>"+
 					"<div class='done-img'></div>"+
@@ -226,6 +229,7 @@ function registerCheck(){
 };
 function fillInfo(){
 	$('.dialog .card .close-btn').nextAll().remove();
+	$('.dialog .card').addClass("up-offset");
 	var HTML = 	"<div class='title fill'>"+
 				"</div>"+
 				"<div class='form'>"+
@@ -303,6 +307,7 @@ function submitInfo(){
 
 }
 function submitSuccess(){
+	$('.dialog .card').removeClass("up-offset");
 	$('.dialog .card .close-btn').nextAll().remove();
 	var HTML = "<div class='done'>"+
 					"<div class='done-img'></div>"+
@@ -312,23 +317,35 @@ function submitSuccess(){
 	$('.dialog').addClass('active');
 	$('.dialog').fadeIn();
 };
-function certain(){
+function certainSuccess(){
+	$('.dialog .card').removeClass("up-offset");
+	$('.dialog .card .close-btn').nextAll().remove();
+	var HTML = "<div class='done'>"+
+					"<div class='done-img'></div>"+
+					"<p class='more-text'>您的认投信息已提交，创次方工作人员将会在3个工作日内联系您</p>"+
+				"</div>";
+	$('.dialog .card').append(HTML);
+	$('.dialog').addClass('active');
+	$('.dialog').fadeIn();
+}
+function certain(money,amount,projectId,gradientId){
+	$('.dialog .card').removeClass("up-offset");
 	$('.dialog .card .close-btn').nextAll().remove();
 	var HTML = 	"<div class='title invest'></div>"+
 				"<div class=apply>"+
 					"<div class='outter-border'>"+
 						"<div class='inner-border'>"+
 							"<p class='text'>认投金额</p>"+
-							"<p class='count'>100</p>"+
+							"<p class='count'>"+money+"</p>"+
 						"</div>"+
 					"</div>"+
 					"<div class='info'>"+
 						"<p class='line-1'>"+
-							"股份占比<span class='black'>0.002%</span>"+
+							"股份占比<span class='black'>"+money/amount*100+"%</span>"+
 						"</p>"+
 						"<p class='line-2'>"+
-							"需要支付管理费<span class='black'>￥2</span>"+
-							"（认投金额的2%），总支付<span class='black'>￥102</span>"+
+							"需要支付管理费<span class='black'>￥"+money*0.02+"</span>"+
+							"（认投金额的2%），总支付<span class='black'>￥"+money*1.02+"</span>"+
 						"</p>"+
 					"</div>"+
 					"<div class='agreements'>"+
@@ -347,10 +364,27 @@ function certain(){
 						"<p class='line'>"+
 							"已同意<a href=''>《创次方平台用户协议》</a>"+
 						"</p>"+
-						"<button class='btn'>提交</button>"+
+						"<button class='btn' onclick=submitCertain(\""+projectId+"\",\""+gradientId+"\")>提交</button>"+
 					"</div>"+
 				"</div>";
 	$('.dialog .card').append(HTML);
 	$('.dialog').addClass('active');
 	$('.dialog').fadeIn();
+};
+function submitCertain(projectId,gradientId){
+	if(document.getElementById("fengxian").checked&&document.getElementById("pingtai").checked){
+		var url = "/setProjectFollow?projectId="+projectId+"&gradientId="+gradientId;
+		$.ajax({
+			type:"GET",
+			url:url,
+			dataType:"json",
+			success:function(data){
+				if(data.msg=="success"){
+					certainSuccess();
+				}
+			}
+		})
+	}else{
+		
+	}
 }

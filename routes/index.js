@@ -5,6 +5,7 @@ var AV = require('avoscloud-sdk').AV;
 AV.initialize(config.AvosAppID,config.AvosAppkey);
 var Project = AV.Object.extend("Project");
 var Gradient = AV.Object.extend("Gradient");
+var User = AV.Object.extend("_User");
 var ProjectFollow = AV.Object.extend("ProjectFollow");
 var Leader = AV.Object.extend("Leader");
 
@@ -67,7 +68,9 @@ router.get('/detail', function(req, res) {
 			mobilePhoneNumber = req.session.user.mobilePhoneNumber;
 		}
 	}
+	var projectId = req.query.projectId;
 	var query = new AV.Query(Project);
+	query.equalTo("objectId",projectId);
 	query.find({
 		success:function(project){
 			var amount = parseFloat(project[0].get("amount")/10000).toFixed(2);
@@ -99,7 +102,7 @@ router.get('/detail', function(req, res) {
 					query.find({
 						success:function(leader){
 							leader = leader[0];
-							res.render('detail',{projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
+							res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
 						},
 						error:function(data,error){
 
@@ -155,5 +158,33 @@ router.get("/getGradient",function(req,res,next){
 			res.end();
 		}
 	});
+});
+
+router.get("/setProjectFollow",function(req,res,next){
+	var projectId = req.query.projectId;
+	var gradientId = req.query.gradientId;
+	var userId = AV.User.current().id;
+	var project = new Project();
+	var gradient = new Gradient();
+	var user = new User();
+	project.id=projectId;
+	gradient.id=gradientId;
+	user.id=userId;
+	var projectFollow = new ProjectFollow();
+	projectFollow.set("projectId",project);
+	projectFollow.set("gradientId",gradient);
+	projectFollow.set("userId",user);
+	projectFollow.save(null,{
+		success:function(data){
+			console.log(data);
+			res.json({msg:"success"});
+			res.end();
+		},
+		error:function(data,error){
+			console.log(error);
+			res.json({msg:"error"});
+			res.end();
+		}
+	})
 });
 module.exports = router;
