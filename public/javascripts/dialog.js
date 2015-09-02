@@ -144,6 +144,7 @@ function loginCheck(){
 		$("#email-empty").remove();
 		$(".dialog [name='password']").removeClass("wrong");
 		$("#password-empty").remove();
+		$(".dialog button").addClass("disabled");
 	}
 };
 function phoneCheck(){
@@ -207,7 +208,7 @@ function registerCheck(){
 	if($(".wrong-msg").length>0){
 		return false;
 	}
-	$(".dialog .btn").attr("disabled","disabled");
+	$(".dialog button").addClass("disabled");
 	var username = $(".dialog [name='username']").val();
 	var email = $(".dialog [name='email']").val();
 	var password = $(".dialog [name='password']").val();
@@ -282,6 +283,7 @@ function submitInfo(){
 	if($(".wrong-msg").length>0){
 		return false;
 	}
+	$(".dialog button").addClass("disabled");
 	var id = $(".dialog [name='id']").val();
 	var name = $(".dialog [name='name']").val();
 	var phone = $(".dialog [name='mobilePhone']").val();
@@ -374,6 +376,7 @@ function certain(money,amount,projectId,gradientId){
 function submitCertain(projectId,gradientId){
 	if(document.getElementById("fengxian").checked&&document.getElementById("pingtai").checked){
 		$(".wrong-msg").remove();
+		$(".dialog button").addClass("disabled");
 		var url = "/setProjectFollow?projectId="+projectId+"&gradientId="+gradientId;
 		$.ajax({
 			type:"GET",
@@ -386,6 +389,8 @@ function submitCertain(projectId,gradientId){
 			}
 		})
 	}else{
-		$('.dialog button').before("<p class='wrong-msg'>请阅读并同意相关协议</p>");
+		if($(".wrong-msg").length<=0){
+			$('.dialog button').before("<p class='wrong-msg'>请阅读并同意相关协议</p>");
+		}
 	}
 }
