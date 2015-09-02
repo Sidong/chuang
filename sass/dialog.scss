@@ -157,23 +157,6 @@
 				text-align: center;
 				cursor: pointer;
 			}
-			.wrong-msg {
-				margin-top: 21px;
-				font-size: 11px;
-				line-height: 20px;
-				color: #ea5513;
-				text-align: center;
-				&::before {
-					content: '';
-					width: 20px;
-					height: 20px;
-					display: inline-block;
-					margin-right: 6px;
-					background-image: url("../images/red_close.png");
-					background-size: cover;
-					vertical-align: top;
-				}
-			}
 			.link {
 				display: block;
 				margin-top: 17px;
@@ -183,6 +166,23 @@
 				color: #58bddb;
 				text-align: center;
 				cursor: pointer;
+			}
+		}
+		.wrong-msg {
+			margin-top: 21px;
+			font-size: 11px;
+			line-height: 20px;
+			color: #ea5513;
+			text-align: center;
+			&::before {
+				content: '';
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				margin-right: 6px;
+				background-image: url("../images/red_close.png");
+				background-size: cover;
+				vertical-align: top;
 			}
 		}
 		.done {
