@@ -373,6 +373,7 @@ function certain(money,amount,projectId,gradientId){
 };
 function submitCertain(projectId,gradientId){
 	if(document.getElementById("fengxian").checked&&document.getElementById("pingtai").checked){
+		$(".wrong-msg").remove();
 		var url = "/setProjectFollow?projectId="+projectId+"&gradientId="+gradientId;
 		$.ajax({
 			type:"GET",
@@ -385,6 +386,6 @@ function submitCertain(projectId,gradientId){
 			}
 		})
 	}else{
-		
+		$('.dialog button').before("<p class='wrong-msg'>请阅读并同意相关协议</p>");
 	}
 }

@@ -87,7 +87,9 @@ router.get('/detail', function(req, res) {
 				success:function(projectFollow){
 					var collection = 0;
 					for(var i = 0 ; i< projectFollow.length;i++){
-						collection+=projectFollow[i].get("gradientId").get("money");
+						if(projectFollow[i].get("isVerify")){
+							collection+=projectFollow[i].get("gradientId").get("money");
+						}
 						if(projectFollow[i].get("isLeader")){
 							leaderMoney = projectFollow[i].get("gradientId").get("money");
 						}

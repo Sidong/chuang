@@ -142,7 +142,7 @@ html(lang="zh-cn")
 					div.faces
 						-each val,key in projectFollow
 							-var can=true
-							-if(!val.get("isLeader"))
+							-if(!val.get("isLeader")&&val.get("isVerify"))
 								-each val1,key1 in projectFollow
 									-if(key1>key)
 										-if(val1.get("userId").get("username")==val.get("userId").get("username"))
