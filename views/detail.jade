@@ -10,7 +10,11 @@ html(lang="zh-cn")
 		title 创次方 | 融资详情
 		link(href="./stylesheets/animate.css", rel="stylesheet")
 		link(href="./stylesheets/detail.css", rel="stylesheet")
+		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
+		div.dialog.active
+			div.card
+				div.close-btn(onclick="cancel()")
 		div.banner
 			div.container.horizontal-center
 				div.logo.horizontal-center
@@ -18,8 +22,12 @@ html(lang="zh-cn")
 					div.back
 					a(href="/") 返回首页
 				div.right
-					a.signup 注册
-					a.login 登录
+					-if(!user)
+						a.signup(onclick="register()") 注册
+						a.login(onclick="login()") 登录
+					-else
+						a.signup #{user.username}
+						a.login(href="/logout") 退出
 		div.container.horizontal-center
 			div.title
 				div.title-img
@@ -33,97 +41,19 @@ html(lang="zh-cn")
 		div.container.horizontal-center
 			div.right-block
 				div.progress.horizontal-center
-					div#circle(data-percent="0.80", data-thickness="8").circle
+					div#circle(data-percent="#{percent/100}", data-thickness="8").circle
 					div.info
 						p.status 融资中
-						p.percent 80%
+						p.percent #{percent}%
 				div.leader
-					p.money 10万
+					p.money #{leaderMoney}
 					div.avator
-					p.title 郭小萍
-					p.info 在金中执教15年 | 深受爱戴的化学老师
+					p.title #{leader.get("userId").get("username")}
+					p.info #{leader.get("identify")}
 					div.jiyu
 						p.main 领投人寄语
-						p.text “创次方”让我看到互联网+金中更多的可能性，也看到了金中人对母校“创造”文化的传承，同时这些金中人通过“创次方”平台重新整合了母校优质而丰富的人才、资源，这是一个突破性的创举。希望这个平台能够聚集更多的金中人，一起实现互联网创业梦，助力互联网创业发展！
+						p.text #{leader.get("sendword")}
 				div.tidus
-					div.tidu.tidu-1
-						div.title 第一梯度 9月1日-7日
-						p.money 
-							span.count 100
-							span.black /
-							| 50位
-						p.existed 
-							| 已有
-							span.black 0
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
-					div.tidu.tidu-2
-						div.title 第二梯度 9月5日-11日
-						p.money 
-							span.count 1000
-							span.black /
-							| 20位
-						p.existed 
-							| 已有
-							span.black 0
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
-					div.tidu.tidu-3
-						div.title 第三梯度 9月9日-15日
-						p.money 
-							span.count 5000
-							span.black /
-							| 15位
-						p.existed 
-							| 已有
-							span.black 0
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
-					div.tidu.tidu-4
-						div.title 第四梯度 9月13日-19日
-						p.money 
-							span.count 10000
-							span.black /
-							| 10位
-						p.existed 
-							| 已有
-							span.black 0
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
-					div.tidu.tidu-5
-						div.title 第五梯度 9月1日-19日
-						p.money 
-							span.count 50000
-							span.black /
-							| 5位
-						p.existed 
-							| 已有
-							span.black 0
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
-					div.tidu.tidu-6
-						div.title 第六梯度 9月1日-19日
-						p.money 
-							span.count 100000
-							span.black /
-							| 1位
-						p.existed 
-							| 已有
-							span.black 1
-							| 位投资人
-						hr
-						p.text 接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集。
-						div.takein_btn 我要投资
 				div.qa
 					p 常见问题
 					ul
@@ -145,17 +75,17 @@ html(lang="zh-cn")
 						p.title 融资目标
 						p.body
 							span.icon-1
-							| ￥50.00万
+							| ￥#{amount}
 					div.progress-2.progress-block
 						p.title 已凑集
 						p.body
 							span.icon-1
-							| ￥38.90万
+							| ￥#{collection}
 					div.progress-3.progress-block
 						p.title 剩余时间
 						p.body
 							span.icon-1
-							| 10天
+							| #{time}
 				div.description
 				div.points
 				div.fenxi
@@ -210,53 +140,71 @@ html(lang="zh-cn")
 				div.gentou
 					div.gentou-img
 					div.faces
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
-						div.member
-							div.avator
-							p 张三
+						-each val,key in projectFollow
+							-var can=true
+							-if(!val.get("isLeader"))
+								-each val1,key1 in projectFollow
+									-if(key1>key)
+										-if(val1.get("userId").get("username")==val.get("userId").get("username"))
+											-can=false
+											-break
+								-if(can)
+									div.member
+										div.avator
+										p #{val.get("userId").get("username")}
 				div.time
 				div.iwant
 					div.money
-					p 我要投资
+					p(onclick='checkFillInfo()') 我要投资
 		div.container.horizontal-center
 			div.contact.horizontal-center
 	script(src='./javascripts/jquery.min.js')
 	script(src='./javascripts/circle-progress.js')
+	script(src='./javascripts/dialog.js')
 	script(type='text/javascript').
+		$(document).ready(function(){
+			$('.dialog').hide();
+			$.ajax({
+					type:"GET",
+					url:"/getGradient",
+					dataType:"json",
+					success:function(data){
+						var gradients = data.gradients;
+						var n = ["一","二","三","四","五","六","七","八","九","十"];
+						for(var i = 0 ; i<gradients.length;i++){
+							var HTML = "<div class=tidu tidu-"+i+">"+
+											"<div class=title>第"+n[i]+"梯度 "+gradients[i].start+"-"+gradients[i].end+"</div>"+
+											"<p class=money>"+
+												"<span class=count>"+gradients[i].money+"</span>"+
+												"<span class=black>/</span>"+
+													gradients[i].number+"位"+
+											"</p>"+
+											"<p class=existed> 已有"+
+												"<span class=black>"+gradients[i].updatedAt+"</span>"+
+												"位投资人"+
+											"</p>"+
+											"<hr>"+
+											"<p class=text>接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集"+
+											"<div class=takein_btn onclick='checkFillInfo(this)'>我要投资</div>"+
+										"</div>";
+							$(".tidus").append(HTML);
+						}
+					}
+				})
+			
+			var msgLogin = "#{msgLogin}";
+			if(msgLogin != ""){
+				if(msgLogin=="error"){
+					var email = "#{emailLogin}";
+					login();
+					$(".dialog [name='email']").val(email);
+					$(".dialog [name='password']").addClass("wrong");
+					$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
+				}
+			}
+		})
 		$('#circle').circleProgress({
-			value: 0.80,
+			value: #{percent/100},
 			size: 180,
 			fill: {
 				color: "#58bddb"
@@ -274,3 +222,17 @@ html(lang="zh-cn")
 				$(className).addClass('animated fadeInRight');
 			}
 		});
+		var isFillInfo = #{isFillInfo};
+		function checkFillInfo(){
+			var user = "#{user}";
+			if(user==""){
+				login();
+			}else{
+				if(!isFillInfo){
+					fillInfo();
+					$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
+				}else{
+					certain();
+				}
+			}
+		};

@@ -4,8 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+// var AV = require('leanengine');
 var config = require('./config');
 var routes = require('./routes/index');
+var user = require('./routes/user');
 
 
 var app = express();
@@ -21,8 +24,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret:config.session_secret,
+    cookie:{maxAge:config.maxAge},
+    resave:false,
+    saveUninitialized:false
 
+}));
+// app.use(AV.Cloud.CookieSession({ secret: 'chuang', maxAge: 3600000, fetchUser: true }));
 app.use('/', routes);
+app.use('/',user);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,8 +50,10 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        console.log(err.message);
-        res.render('error');
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
 }
 
@@ -47,8 +61,10 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    console.log(err.message);
-    res.render('error');
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 if (!module.parent) {

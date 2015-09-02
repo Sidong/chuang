@@ -15,88 +15,19 @@ html(lang="zh-cn")
 	body
 		div.dialog.active
 			div.card
-				div.close-btn
-				//- div.title.join
-				//- div.title.login
-				//- div.title.fill
-				div.title.invest
-				div.form
-					form
-						div.form-line
-							p.label 用户名
-							input.input(name="username", type="text", placeholder="您在创次方的名号")
-						div.form-line
-							p.label 邮 箱
-							input.input.wrong(name="username", type="text", placeholder="您在创次方的名号")
-						div.form-line2
-							p.label 投资身份
-							input(type="radio", name="status", value="机构投资人")
-							span.radio-text 机构投资人
-							input(type="radio", name="status", value="公司投资并购部")
-							span.radio-text 公司投资并购部
-							input(type="radio", name="status", value="个人投资人")
-							span.radio-text 个人投资人
-						div.form-line2
-							p.label 是否外籍
-							input(type="radio", name="status", value="0")
-							span.radio-text 非外籍
-							input(type="radio", name="status", value="1")
-							span.radio-text 外籍
-						div.form-line3
-							p 符合其中条件之一的投资者：
-							div.radio-div
-								div
-									input(type="radio", name="requirement", value="我的金融资产超过100万元")
-									span.radio-text 我的金融资产超过100万元
-								div
-									input(type="radio", name="requirement", value="我的年收入超过30万元")
-									span.radio-text 我的年收入超过30万元
-								div
-									input(type="radio", name="requirement", value="我是专业的风险投资人")
-									span.radio-text 我是专业的风险投资人
-						button.btn 注册
-					p.wrong-msg 你填写的邮箱已被注册过，赶紧登录吧！
-					p.link 已有创次方帐号？登录
-				//- div.done
-					div.done-img
-					p.success-text 注册成功
-					p.more-text 您的跟投人认证申请已提交，创次方工作人员将会在3个工作日内联系您
-				//- div.apply
-					div.outter-border
-						div.inner-border
-							p.text 认投金额
-							p.count 100
-					div.info
-						p.line-1
-							| 股份占比
-							span.black 0.002%
-						p.line-2
-							| 需要支付管理费
-							span.black ￥2
-							| （认投金额的2%），总支付
-							span.black ￥102
-					div.agreements
-						div.agreement
-							input#fengxian(type="checkbox", value="None", name="fengxian")
-							label(for="fengxian")
-						p.line
-							| 已阅读
-							a(href="") 《风险揭示书》
-						hr
-						div.agreement
-							input#pingtai(type="checkbox", value="None", name="pingtai")
-							label(for="pingtai")
-						p.line
-							| 已同意
-							a(href="") 《创次方平台用户协议》
-						button.btn 提交
+				div.close-btn(onclick="cancel()")
 		div.navbar
 			div.container.horizontal-center
-				div.menu
-					a 李嘉诚
+			div.menu
+				-if(!user)
+					a(onclick="register()") 注册
 					span |
-					a 退出
-				div.logo.horizontal-center
+					a(onclick="login()") 登录
+				-else
+					a #{user.username}
+					span |
+					a(href="/logout") 退出
+			div.logo.horizontal-center
 		div.indicator
 			div.point.active(data-index="1")
 			div.point(data-index="2")
@@ -181,44 +112,17 @@ html(lang="zh-cn")
 						div.contact.horizontal-center
 	script(src='./javascripts/jquery.min.js')
 	script(src='./javascripts/jquery.fullPage.min.js')
+	script(src='./javascripts/dialog.js')
 	script(type='text/javascript').
 		$(document).ready(function () {
-			//- $('.page2').hide();
-			//- $('.page3').hide();
-			//- $('.page4').hide();
-			//- $('.page5').hide();
+			$('.dialog').hide();
 			$('#fullpage').fullpage({
 				afterLoad: function (anchorLink, index) {
-					//- var loadedSection = $(this);
-					//- if (index == 2) {
-					//- 	$('.page2').fadeIn();
-					//- }
-					//- if (index == 3) {
-					//- 	$('.page3').fadeIn();
-					//- }
-					//- if (index == 4) {
-					//- 	$('.page4').fadeIn();
-					//- }
-					//- if (index == 5) {
-					//- 	$('.page5').fadeIn();
-					//- }
 					$('.point').removeClass('active');
 					$($('.point')[index - 1]).addClass('active');
 				},
 				onLeave: function(index, nextIndex, direction){
 					var leavingSection = $(this);
-					//- if (index == 2 && (direction =='down' || 'up')) {
-					//- 	$('.page2').fadeOut();
-					//- }
-					//- if (index == 3 && (direction =='down' || 'up')) {
-					//- 	$('.page3').fadeOut();
-					//- }
-					//- if (index == 4 && (direction =='down' || 'up')) {
-					//- 	$('.page4').fadeOut();
-					//- }
-					//- if (index == 5 && (direction =='down' || 'up')) {
-					//- 	$('.page5').fadeOut();
-					//- }
 				}
 			});
 			$('.point').click(function () {
@@ -227,4 +131,14 @@ html(lang="zh-cn")
 				$($('.point')[index - 1]).addClass('active');
 				$.fn.fullpage.moveTo(index, 0);
 			});
+			var msgLogin = "#{msgLogin}";
+			if(msgLogin != ""){
+				if(msgLogin=="error"){
+					var email = "#{emailLogin}";
+					login();
+					$(".dialog [name='email']").val(email);
+					$(".dialog [name='password']").addClass("wrong");
+					$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
+				}
+			}
 		});
