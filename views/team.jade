@@ -11,6 +11,9 @@ html(lang="zh-cn")
 		link(href="./stylesheets/product.css", rel="stylesheet")
 		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
+		div.dialog
+			div.card
+				div.close-btn(onclick="cancel()")
 		div.banner
 			div.container.horizontal-center
 				div.logo.horizontal-center
@@ -18,8 +21,12 @@ html(lang="zh-cn")
 					div.back
 					a(href="/") 返回首页
 				div.right
-					a.signup 注册
-					a.login 登录
+					-if(!user)
+						a.signup(onclick="register()") 注册
+						a.login(onclick="login()") 登录
+					-else
+						a.signup #{user.username}
+						a.login(href="/logout") 退出
 		div.team.container.horizontal-center
 			div.member-1.horizontal-center
 			div.member-2.horizontal-center
@@ -28,3 +35,19 @@ html(lang="zh-cn")
 			div.member-5.horizontal-center
 		div.container.horizontal-center
 			div.contact.horizontal-center
+	script(src='./javascripts/jquery.min.js')
+	script(src='./javascripts/dialog.js')
+	script(type='text/javascript').
+		$(document).ready(function () {
+			$('.dialog').hide();
+			var msgLogin = "#{msgLogin}";
+			if(msgLogin != ""){
+				if(msgLogin=="error"){
+					var email = "#{emailLogin}";
+					login();
+					$(".dialog [name='email']").val(email);
+					$(".dialog [name='password']").addClass("wrong");
+					$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
+				}
+			}
+		});

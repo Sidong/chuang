@@ -18,15 +18,15 @@ html(lang="zh-cn")
 				div.close-btn(onclick="cancel()")
 		div.navbar
 			div.container.horizontal-center
-			div.menu
-				-if(!user)
-					a(onclick="register()") 注册
-					span |
-					a(onclick="login()") 登录
-				-else
-					a #{user.username}
-					span |
-					a(href="/logout") 退出
+				div.menu
+					-if(!user)
+						a(onclick="register()") 注册
+						span |
+						a(onclick="login()") 登录
+					-else
+						a #{user.username}
+						span |
+						a(href="/logout") 退出
 			div.logo.horizontal-center
 		div.indicator
 			div.point.active(data-index="1")

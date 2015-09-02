@@ -9,7 +9,11 @@ html(lang="zh-cn")
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		title 创次方 | 产品介绍
 		link(href="./stylesheets/product.css", rel="stylesheet")
+		link(href="./stylesheets/dialog.css", rel="stylesheet")
 	body
+		div.dialog
+			div.card
+				div.close-btn(onclick="cancel()")
 		div.banner
 			div.container.horizontal-center
 				div.logo.horizontal-center
@@ -17,8 +21,12 @@ html(lang="zh-cn")
 					div.back
 					a(href="/") 返回首页
 				div.right
-					a.signup 注册
-					a.login 登录
+					-if(!user)
+						a.signup(onclick="register()") 注册
+						a.login(onclick="login()") 登录
+					-else
+						a.signup #{user.username}
+						a.login(href="/logout") 退出
 		div.news
 			div.container.horizontal-center
 				div.icon
@@ -72,4 +80,19 @@ html(lang="zh-cn")
 						p.info 分额度分时段认投，更多选择总会适合你
 		div.container.horizontal-center
 			div.contact.horizontal-center
-	//- script(src='./javascripts/jquery.min.js')
+	script(src='./javascripts/jquery.min.js')
+	script(src='./javascripts/dialog.js')
+	script(type='text/javascript').
+		$(document).ready(function () {
+			$('.dialog').hide();
+			var msgLogin = "#{msgLogin}";
+			if(msgLogin != ""){
+				if(msgLogin=="error"){
+					var email = "#{emailLogin}";
+					login();
+					$(".dialog [name='email']").val(email);
+					$(".dialog [name='password']").addClass("wrong");
+					$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
+				}
+			}
+		});
