@@ -100,7 +100,7 @@ html(lang="zh-cn")
 							div.lingtou.block
 							div.shuren.block
 						div.title3.horizontal-center
-						a.takein-btn.horizontal-center(onclick="return checkLogin()",href="/detail?projectId=55e45cad00b0ded317f1bfac", target="_blank")
+						a.takein-btn.horizontal-center(onclick="return checkLogin()",href="/detail?projectId=55e45cad00b0ded317f1bfac", target="_blank" id="touzi")
 						div.facebook.horizontal-center
 			div.section
 				div.container.horizontal-center
@@ -158,6 +158,7 @@ html(lang="zh-cn")
 			}
 		});
 		var isFillInfo = #{isFillInfo};
+		var isVerify = #{isVerify};
 		function checkLogin(){
 			var user = "#{user}";
 			if(user==""){
@@ -168,10 +169,30 @@ html(lang="zh-cn")
 					fillInfo();
 					$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
 					return false;
-				}else if(!#{isVerify}){
-					submitSuccess();
+				}else if(!isVerify){
+					$.ajax({
+							type:"GET",
+							url:"/getVerify",
+							dataType:"json",
+							success:function(data){
+								if(data.isVerify){
+									var touzi = document.getElementById("touzi");
+									isVerify = data.isVerify;
+									if(document.createEvent){
+								        var ev = document.createEvent('HTMLEvents');
+								        ev.initEvent('click', true, true);
+								        touzi.dispatchEvent(ev);
+								    }
+								    else
+								        touzi.click();
+								}else{
+									submitSuccess();
+								}
+							}
+						});
 					return false;
+					
 				}
 			}
 			
-		}
+		};

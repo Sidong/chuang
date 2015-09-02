@@ -80,89 +80,98 @@ router.get('/team', function(req, res) {
 });
 
 router.get('/detail', function(req, res) {
-	if(req.session.user==null||!req.session.user.isVerify){
-		if(req.session.user==null){
-			req.session.tan = "login";
-		}else{
-			if(!req.session.user.ID||!req.session.user.name){
-				req.session.tan = "fillInfo";
-			}else if(!req.session.user.isVerify){
-				req.session.tan = "verify";
-			}
-		}
-		
+	if(req.session.user==null){
+		req.session.tan = "login";
 		res.redirect("/index");
+	}else if(!req.session.user.ID||!req.session.user.name){
+			req.session.tan = "fillInfo";
+			res.redirect("/index");	
 	}else{
-		var msgLogin = "";
-		var emailLogin ="";
-		if(req.session.login!=null){
-			msgLogin = req.session.login.msg;
-			emailLogin = req.session.login.email;
-		}
-		var isFillInfo = true;
-		var mobilePhoneNumber="";
-		if(req.session.user!=null){
-			if(!req.session.user.ID||!req.session.user.name){
-				isFillInfo = false;
-			}
-			if(req.session.user.mobilePhoneNumber){
-				mobilePhoneNumber = req.session.user.mobilePhoneNumber;
-			}
-		}
-		var projectId = req.query.projectId;
-		var query = new AV.Query(Project);
-		query.equalTo("objectId",projectId);
-		query.find({
-			success:function(project){
-				var amount = parseFloat(project[0].get("amount")/10000).toFixed(2);
-				amount = amount.toString()+"万";
-				var time = (new Date(project[0].get("end")).getTime()-new Date().getTime())<0? 0 : (new Date(project[0].get("end")).getTime()-new Date().getTime());
-				time = Math.floor(time/(1000*60*60*24)).toString()+"天";
-
-				var query = new AV.Query(ProjectFollow);
-
-				query.include("gradientId");
-				query.include("userId");
-				query.equalTo("projectId",project[0]);
-				query.find({
-					success:function(projectFollow){
-						var collection = 0;
-						for(var i = 0 ; i< projectFollow.length;i++){
-							if(projectFollow[i].get("isVerify")){
-								collection+=projectFollow[i].get("gradientId").get("money");
+		if(!req.session.user.isVerify){
+			var query = new AV.Query(User);
+			query.equalTo("username",req.session.user.username);
+			query.find({
+				success:function(data){
+					if(!data[0].get("isVerify")){
+						req.session.tan = "verify";
+						res.redirect("/index");
+					}else{
+						var msgLogin = "";
+						var emailLogin ="";
+						if(req.session.login!=null){
+							msgLogin = req.session.login.msg;
+							emailLogin = req.session.login.email;
+						}
+						var isFillInfo = true;
+						var mobilePhoneNumber="";
+						if(req.session.user!=null){
+							if(!req.session.user.ID||!req.session.user.name){
+								isFillInfo = false;
 							}
-							if(projectFollow[i].get("isLeader")){
-								leaderMoney = projectFollow[i].get("gradientId").get("money");
+							if(req.session.user.mobilePhoneNumber){
+								mobilePhoneNumber = req.session.user.mobilePhoneNumber;
 							}
 						}
-						var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
-						collection = parseFloat(collection/10000).toFixed(2);
-						collection = collection.toString()+"万";
-						
-						query = new AV.Query(Leader);
-						query.include("userId");
-						query.equalTo("projectId",project[0]);
+						var projectId = req.query.projectId;
+						var query = new AV.Query(Project);
+						query.equalTo("objectId",projectId);
 						query.find({
-							success:function(leader){
-								leader = leader[0];
-								res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
+							success:function(project){
+								var amount = parseFloat(project[0].get("amount")/10000).toFixed(2);
+								amount = amount.toString()+"万";
+								var time = (new Date(project[0].get("end")).getTime()-new Date().getTime())<0? 0 : (new Date(project[0].get("end")).getTime()-new Date().getTime());
+								time = Math.floor(time/(1000*60*60*24)).toString()+"天";
+
+								var query = new AV.Query(ProjectFollow);
+
+								query.include("gradientId");
+								query.include("userId");
+								query.equalTo("projectId",project[0]);
+								query.find({
+									success:function(projectFollow){
+										var collection = 0;
+										for(var i = 0 ; i< projectFollow.length;i++){
+											if(projectFollow[i].get("isVerify")){
+												collection+=projectFollow[i].get("gradientId").get("money");
+											}
+											if(projectFollow[i].get("isLeader")){
+												leaderMoney = projectFollow[i].get("gradientId").get("money");
+											}
+										}
+										var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
+										collection = parseFloat(collection/10000).toFixed(2);
+										collection = collection.toString()+"万";
+										
+										query = new AV.Query(Leader);
+										query.include("userId");
+										query.equalTo("projectId",project[0]);
+										query.find({
+											success:function(leader){
+												leader = leader[0];
+												res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
+											},
+											error:function(data,error){
+
+											}
+										})
+										
+									},
+									error:function(data,error){
+
+									}
+								})
 							},
 							error:function(data,error){
 
 							}
-						})
-						
-					},
-					error:function(data,error){
-
+						});
+					
 					}
-				})
-			},
-			error:function(data,error){
-
-			}
-		});
+				}
+			})
+		}
 	}
+		
   	
   	
 });

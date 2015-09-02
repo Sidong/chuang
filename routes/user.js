@@ -171,6 +171,19 @@ router.get("/getPhone",function(req,res,next){
 			}
 		}
 	})
-})
+});
 
+router.get("/getVerify",function(req,res,next){
+	var user = req.session.user;
+	if(user!=null){
+		var query = new AV.Query(User);
+		query.equalTo("username",user.username);
+		query.find({
+			success:function(data){
+				res.json({isVerify:data[0].get("isVerify")});
+				res.end();
+			}
+		});
+	}
+});
 module.exports = router;

@@ -153,9 +153,9 @@ html(lang="zh-cn")
 										div.avator
 										p #{val.get("userId").get("username")}
 				div.time
-				div.iwant
+				div.iwant(onclick='toTouZi()')
 					div.money
-					p(onclick='toTouZi()') 我要投资
+					p 我要投资
 		div.container.horizontal-center
 			div.contact.horizontal-center
 	script(src='./javascripts/jquery.min.js')

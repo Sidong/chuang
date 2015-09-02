@@ -230,6 +230,19 @@ function registerCheck(){
 	return false;
 	
 };
+function IDCheck(){
+	var reg = new RegExp(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/);
+	var id = $(".dialog [name='id']").val()
+	if(id!=""){
+		if(!reg.test(id)&&$("#id-form").length<=0){
+			$(".dialog [name='id']").addClass("wrong");
+			$('.dialog button').before("<p class='wrong-msg' id='id-form'>您填写的身份证号码格式不正确</p>");
+		}else{
+			$(".dialog [name='id']").removeClass("wrong");
+			$("#id-form").remove();
+		}
+	}
+};
 function fillInfo(){
 	$('.dialog .card .close-btn').nextAll().remove();
 	$('.dialog .card').addClass("up-offset");
@@ -243,7 +256,7 @@ function fillInfo(){
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>身份证号码</p>"+
-							"<input class='input' name='id' type='text' required='required' placeholder='请填写您的身份证号码'>"+
+							"<input class='input' name='id' type='text' required='required' onblur='return IDCheck()' placeholder='请填写您的身份证号码'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>手机号码</p>"+
