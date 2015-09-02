@@ -131,7 +131,7 @@ body {
     display: inline-block;
     width: 390px;
     height: 313px;
-    background-image: url("../images/holder_img.png");
+    background-image: url("../images/holder_img2.png");
     background-size: cover; }
   .interview .wrapper {
     display: inline-block;
@@ -206,7 +206,7 @@ body {
     height: 313px;
     margin-left: 26px;
     margin-top: -48px;
-    background-image: url("../images/holder_img.png");
+    background-image: url("../images/holder_img3.png");
     background-size: cover; }
   .financing .block {
     margin-top: 38px; }

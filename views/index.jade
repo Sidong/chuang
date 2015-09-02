@@ -41,24 +41,24 @@ html(lang="zh-cn")
 						div.title1.horizontal-center
 						a(href="/team", target="_blank").team-btn.horizontal-center
 						div.faces.horizontal-center
-							div.face.face-1
-								img(src="./images/img_1.png").animated.bounceIn
+							div.face
+								img(src="./images/img_1.png", data-index="1").animated.bounceIn
 								p.name 沈堉河
 								img.field(src="./images/field_1.png")
-							div.face.face-2
-								img(src="./images/img_2.png").animated.bounceIn
+							div.face
+								img(src="./images/img_2.png", data-index="2").animated.bounceIn
 								p.name 陈冰淳
 								img.field(src="./images/field_2.png")
-							div.face.face-3
-								img(src="./images/img_3.png").animated.bounceIn
+							div.face
+								img(src="./images/img_3.png", data-index="3").animated.bounceIn
 								p.name 许哲霓
 								img.field(src="./images/field_3.png")
-							div.face.face-4
-								img(src="./images/img_4.png").animated.bounceIn
+							div.face
+								img(src="./images/img_4.png", data-index="5").animated.bounceIn
 								p.name 鲁涵
 								img.field(src="./images/field_4.png")
-							div.face.face-5
-								img(src="./images/img_5.png").animated.bounceIn
+							div.face
+								img(src="./images/img_5.png", data-index="4").animated.bounceIn
 								p.name 林臻
 								img.field(src="./images/field_5.png")
 				div.container.horizontal-center
@@ -81,15 +81,15 @@ html(lang="zh-cn")
 							p.heavy 期待与你一起创造更多！
 						div.news-intv-fina.horizontal-center
 							div.block
-								img(src="./images/news.png")
+								img(src="./images/news.png", data-section="news")
 								p.offset-top 多向探索发现
 								p 紧随互联新潮
 							div.block.interview
-								img(src="./images/interview.png")
+								img(src="./images/interview.png", data-section="interview")
 								p.offset-top 独家专业解析
 								p 筛选优质项目
 							div.block
-								img(src="./images/financing.png")
+								img(src="./images/financing.png", data-section="financing")
 								p.offset-top 整合多维资源
 								p 创造次方价值
 			div.section.grey-bg
@@ -116,6 +116,12 @@ html(lang="zh-cn")
 	script(type='text/javascript').
 		$(document).ready(function () {
 			$('.dialog').hide();
+			$('.face>img').click(function () {
+				window.location.href = "/team#member-" + $(this).data("index");
+			});
+			$('.news-intv-fina img').click(function () {
+				window.location.href = "/product#" + $(this).data("section");
+			});
 			$('#fullpage').fullpage({
 				afterLoad: function (anchorLink, index) {
 					$('.point').removeClass('active');

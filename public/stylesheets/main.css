@@ -111,6 +111,8 @@ body {
       -moz-animation-delay: 1s;
       -webkit-animation-delay: 1s;
       animation-delay: 1s; }
+      .page1 .faces .face img:hover {
+        cursor: pointer; }
     .page1 .faces .face .name {
       margin-top: 25px;
       font-size: 18px;
@@ -182,15 +184,13 @@ body {
       height: 206px;
       margin-top: 76px;
       text-align: center; }
+      .page2 .news-intv-fina .block img {
+        cursor: pointer; }
       .page2 .news-intv-fina .block p {
         color: #555;
         font-size: 14px; }
       .page2 .news-intv-fina .block .offset-top {
         margin-top: 12px; }
-      .page2 .news-intv-fina .block:hover {
-        -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px 2px; }
     .page2 .news-intv-fina .interview {
       background-image: url("../images/interview.png");
       background-size: cover;

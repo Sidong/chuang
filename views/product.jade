@@ -6,7 +6,7 @@ html(lang="zh-cn")
 		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
 		meta(name="renderer", content="webkit")
 		meta(name="author", content="WlliTeam")
-		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+		//- meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		title 创次方 | 产品介绍
 		link(href="./stylesheets/product.css", rel="stylesheet")
 		link(href="./stylesheets/dialog.css", rel="stylesheet")
@@ -14,7 +14,7 @@ html(lang="zh-cn")
 		div.dialog
 			div.card
 				div.close-btn(onclick="cancel()")
-		div.banner
+		div.banner#banner
 			div.container.horizontal-center
 				div.logo.horizontal-center
 				div.left
@@ -27,7 +27,7 @@ html(lang="zh-cn")
 					-else
 						a.signup #{user.username}
 						a.login(href="/logout") 退出
-		div.news
+		div.news#news
 			div.container.horizontal-center
 				div.icon
 				div.text
@@ -41,7 +41,7 @@ html(lang="zh-cn")
 							img(src="./images/product_2.png")
 							p 可视化项目数据
 				div.image
-		div.interview
+		div.interview#interview
 			div.container.horizontal-center
 				div.icon
 				div.image
@@ -57,7 +57,7 @@ html(lang="zh-cn")
 							div.avator
 						div.anni.block
 							div.avator
-		div.financing
+		div.financing#financing
 			div.container.horizontal-center
 				div.icon
 				div.text

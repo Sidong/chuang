@@ -135,6 +135,9 @@ body {
 
 			img {
 				@include animation-delay(1s);
+				&:hover {
+					cursor: pointer;
+				}
 			}
 
 			.name {
@@ -224,6 +227,9 @@ body {
 			height: 206px;
 			margin-top: 76px;
 			text-align: center;
+			img {
+				cursor: pointer;
+			}
 			p {
 				color: #555;
 				font-size: 14px;
@@ -232,7 +238,7 @@ body {
 				margin-top: 12px;
 			}
 			&:hover {
-				@include box-shadow(rgba(0,0,0,0.3) 0px 2px 5px 2px);	
+				// @include box-shadow(rgba(0,0,0,0.3) 0px 2px 5px 2px);	
 			}
 		}
 
