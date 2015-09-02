@@ -123,6 +123,9 @@
         line-height: 40px;
         text-align: center;
         cursor: pointer; }
+        .dialog .card .form .btn.disabled {
+          background-color: #a0a0a0;
+          cursor: default; }
       .dialog .card .form .link {
         display: block;
         margin-top: 17px;
@@ -263,6 +266,9 @@
         line-height: 40px;
         text-align: center;
         cursor: pointer; }
+        .dialog .card .apply .btn.disabled {
+          background-color: #a0a0a0;
+          cursor: default; }
 
 .black {
   color: #000; }
