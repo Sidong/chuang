@@ -147,14 +147,31 @@ html(lang="zh-cn")
 					$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
 				}
 			}
+			var tan = "#{tan}";
+			if(tan=="login"){
+				login();
+			}else if(tan=="fillInfo"){
+				fillInfo();
+				$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
+			}else if(tan=="verify"){
+				submitSuccess();
+			}
 		});
+		var isFillInfo = #{isFillInfo};
 		function checkLogin(){
 			var user = "#{user}";
 			if(user==""){
 				login();
 				return false;
 			}else{
-				return true;
+				if(!isFillInfo){
+					fillInfo();
+					$(".dialog [name='mobilePhone']").val("#{mobilePhoneNumber}");
+					return false;
+				}else if(!#{isVerify}){
+					submitSuccess();
+					return false;
+				}
 			}
 			
 		}

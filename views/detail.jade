@@ -188,7 +188,11 @@ html(lang="zh-cn")
 							if(gradients[i].updatedAt>=2*gradients[i].number){
 								HTML += "<div class='takein_btn disabled'>我要投资</div>";
 							}else{
-								HTML += "<div class=takein_btn onclick='checkFillInfo("+gradients[i].money+",\""+gradients[i].objectId+"\")'>我要投资</div>";
+								if(!gradients[i].createdAt){
+									HTML += "<div class='takein_btn disabled'>我要投资</div>";
+								}else{
+									HTML += "<div class=takein_btn onclick='checkFillInfo("+gradients[i].money+",\""+gradients[i].objectId+"\")'>我要投资</div>";
+								}
 							}
 							HTML += "</div>";
 							$(".tidus").append(HTML);

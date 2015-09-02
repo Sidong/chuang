@@ -17,8 +17,19 @@ router.get('/', function(req, res) {
 		msgLogin = req.session.login.msg;
 		emailLogin = req.session.login.email;
 	}
-	
-  	res.render('index',{user:req.session.user,msgLogin:msgLogin,emailLogin:emailLogin});
+	var isFillInfo = true;
+	var mobilePhoneNumber="";
+	var isVerify = true;
+	if(req.session.user!=null){
+		isVerify = req.session.user.isVerify;
+		if(!req.session.user.ID||!req.session.user.name){
+			isFillInfo = false;
+		}
+		if(req.session.user.mobilePhoneNumber){
+			mobilePhoneNumber = req.session.user.mobilePhoneNumber;
+		}
+	}
+  	res.render('index',{isVerify:isVerify,user:req.session.user,msgLogin:msgLogin,emailLogin:emailLogin,isFillInfo:isFillInfo,mobilePhoneNumber:mobilePhoneNumber});
 });
 
 router.get('/index', function(req, res) {
@@ -28,7 +39,24 @@ router.get('/index', function(req, res) {
 		msgLogin = req.session.login.msg;
 		emailLogin = req.session.login.email;
 	}
-  	res.render('index',{user:req.session.user,msgLogin:msgLogin,emailLogin:emailLogin});
+	var isFillInfo = true;
+	var isVerify = true;
+	var mobilePhoneNumber="";
+	if(req.session.user!=null){
+		isVerify = req.session.user.isVerify;
+		if(!req.session.user.ID||!req.session.user.name){
+			isFillInfo = false;
+		}
+		if(req.session.user.mobilePhoneNumber){
+			mobilePhoneNumber = req.session.user.mobilePhoneNumber;
+		}
+	}
+	var tan = "";
+	if(req.session.tan!=null){
+		tan = req.session.tan;
+		req.session.tan=null;
+	}
+  	res.render('index',{tan:tan,isVerify:isVerify,user:req.session.user,msgLogin:msgLogin,emailLogin:emailLogin,isFillInfo:isFillInfo,mobilePhoneNumber:mobilePhoneNumber});
 });
 
 router.get('/product', function(req, res) {
@@ -52,75 +80,89 @@ router.get('/team', function(req, res) {
 });
 
 router.get('/detail', function(req, res) {
-	var msgLogin = "";
-	var emailLogin ="";
-	if(req.session.login!=null){
-		msgLogin = req.session.login.msg;
-		emailLogin = req.session.login.email;
-	}
-	var isFillInfo = true;
-	var mobilePhoneNumber="";
-	if(req.session.user!=null){
-		if(!req.session.user.ID||!req.session.user.name){
-			isFillInfo = false;
+	if(req.session.user==null||!req.session.user.isVerify){
+		if(req.session.user==null){
+			req.session.tan = "login";
+		}else{
+			if(!req.session.user.ID||!req.session.user.name){
+				req.session.tan = "fillInfo";
+			}else if(!req.session.user.isVerify){
+				req.session.tan = "verify";
+			}
 		}
-		if(req.session.user.mobilePhoneNumber){
-			mobilePhoneNumber = req.session.user.mobilePhoneNumber;
+		
+		res.redirect("/index");
+	}else{
+		var msgLogin = "";
+		var emailLogin ="";
+		if(req.session.login!=null){
+			msgLogin = req.session.login.msg;
+			emailLogin = req.session.login.email;
 		}
-	}
-	var projectId = req.query.projectId;
-	var query = new AV.Query(Project);
-	query.equalTo("objectId",projectId);
-	query.find({
-		success:function(project){
-			var amount = parseFloat(project[0].get("amount")/10000).toFixed(2);
-			amount = amount.toString()+"万";
-			var time = (new Date(project[0].get("end")).getTime()-new Date().getTime())<0? 0 : (new Date(project[0].get("end")).getTime()-new Date().getTime());
-			time = Math.floor(time/(1000*60*60*24)).toString()+"天";
+		var isFillInfo = true;
+		var mobilePhoneNumber="";
+		if(req.session.user!=null){
+			if(!req.session.user.ID||!req.session.user.name){
+				isFillInfo = false;
+			}
+			if(req.session.user.mobilePhoneNumber){
+				mobilePhoneNumber = req.session.user.mobilePhoneNumber;
+			}
+		}
+		var projectId = req.query.projectId;
+		var query = new AV.Query(Project);
+		query.equalTo("objectId",projectId);
+		query.find({
+			success:function(project){
+				var amount = parseFloat(project[0].get("amount")/10000).toFixed(2);
+				amount = amount.toString()+"万";
+				var time = (new Date(project[0].get("end")).getTime()-new Date().getTime())<0? 0 : (new Date(project[0].get("end")).getTime()-new Date().getTime());
+				time = Math.floor(time/(1000*60*60*24)).toString()+"天";
 
-			var query = new AV.Query(ProjectFollow);
+				var query = new AV.Query(ProjectFollow);
 
-			query.include("gradientId");
-			query.include("userId");
-			query.equalTo("projectId",project[0]);
-			query.find({
-				success:function(projectFollow){
-					var collection = 0;
-					for(var i = 0 ; i< projectFollow.length;i++){
-						if(projectFollow[i].get("isVerify")){
-							collection+=projectFollow[i].get("gradientId").get("money");
+				query.include("gradientId");
+				query.include("userId");
+				query.equalTo("projectId",project[0]);
+				query.find({
+					success:function(projectFollow){
+						var collection = 0;
+						for(var i = 0 ; i< projectFollow.length;i++){
+							if(projectFollow[i].get("isVerify")){
+								collection+=projectFollow[i].get("gradientId").get("money");
+							}
+							if(projectFollow[i].get("isLeader")){
+								leaderMoney = projectFollow[i].get("gradientId").get("money");
+							}
 						}
-						if(projectFollow[i].get("isLeader")){
-							leaderMoney = projectFollow[i].get("gradientId").get("money");
-						}
+						var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
+						collection = parseFloat(collection/10000).toFixed(2);
+						collection = collection.toString()+"万";
+						
+						query = new AV.Query(Leader);
+						query.include("userId");
+						query.equalTo("projectId",project[0]);
+						query.find({
+							success:function(leader){
+								leader = leader[0];
+								res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
+							},
+							error:function(data,error){
+
+							}
+						})
+						
+					},
+					error:function(data,error){
+
 					}
-					var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
-					collection = parseFloat(collection/10000).toFixed(2);
-					collection = collection.toString()+"万";
-					
-					query = new AV.Query(Leader);
-					query.include("userId");
-					query.equalTo("projectId",project[0]);
-					query.find({
-						success:function(leader){
-							leader = leader[0];
-							res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
-						},
-						error:function(data,error){
+				})
+			},
+			error:function(data,error){
 
-						}
-					})
-					
-				},
-				error:function(data,error){
-
-				}
-			})
-		},
-		error:function(data,error){
-
-		}
-	});
+			}
+		});
+	}
   	
   	
 });
@@ -141,8 +183,15 @@ router.get("/getGradient",function(req,res,next){
 						}
 						gradients[i].updatedAt = n;
 						var start = new Date(gradients[i].get("start"));
-						start = start.getMonth()+1+"月"+start.getDate()+"日";
 						var end = new Date(gradients[i].get("end"));
+						var now = new Date();
+						if(now>=start&&now<=end){
+							gradients[i].createdAt = true;
+						}else{
+							gradients[i].createdAt = false;
+						}
+						start = start.getMonth()+1+"月"+start.getDate()+"日";
+						
 						end = end.getDate()+"日";
 						gradients[i].set("start",start);
 						gradients[i].set("end",end);
