@@ -1,7 +1,9 @@
 body {
   background-color: #FFF;
   font-family: "Microsoft YaHei";
-  font-size: 14px; }
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto; }
 
 * {
   margin: 0;

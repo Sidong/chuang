@@ -3,6 +3,8 @@
 body {
 	background-color: #FFF;
 	font-family: "Microsoft YaHei";
+	-webkit-font-smoothing: antialiased;
+	text-rendering:auto;
 }
 
 * {
