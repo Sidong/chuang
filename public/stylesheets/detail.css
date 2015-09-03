@@ -54,25 +54,19 @@ body {
         line-height: 36px; }
     .banner .container .right {
       width: 200px;
-      height: 36px;
-      position: absolute;
-      right: 40px;
-      top: 28px;
-      text-align: right; }
-      .banner .container .right .signup, .banner .container .right .login {
-        text-align: center;
-        line-height: 36px;
-        display: inline-block;
-        width: 70px;
-        height: 36px;
-        border: 1px solid #444;
-        margin-left: 12px;
-        cursor: pointer;
+      float: right;
+      text-align: right;
+      padding-top: 10px;
+      font-size: 14px;
+      font-family: "Microsoft YaHei";
+      padding-right: 52px;
+      color: #000000; }
+      .banner .container .right a {
+        color: #000;
         text-decoration: none;
-        color: #444; }
-        .banner .container .right .signup:hover, .banner .container .right .login:hover {
-          background-color: #444;
-          color: #fff; }
+        padding-left: 25px;
+        padding-right: 25px;
+        cursor: pointer; }
 
 .title {
   width: 100%; }

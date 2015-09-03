@@ -70,27 +70,19 @@ body {
 
 		.right {
 			width: 200px;
-			height: 36px;
-			position: absolute;
-			right: 40px;
-			top: 28px;
+			float: right;
 			text-align: right;
-
-			.signup, .login {
-				text-align: center;
-				line-height: 36px;
-				display: inline-block;
-				width: 70px;
-				height: 36px;
-				border: 1px solid #444;
-				margin-left: 12px;
-				cursor: pointer;
+			padding-top: 10px;
+			font-size: 14px;
+			font-family: "Microsoft YaHei";
+			padding-right: 52px;
+			color: #000000;
+			a {
+				color: #000;
 				text-decoration: none;
-				color: #444;
-				&:hover {
-					background-color: #444;
-					color: #fff;
-				}
+				padding-left: 25px;
+				padding-right: 25px;
+				cursor: pointer;
 			}
 		}
 	}	

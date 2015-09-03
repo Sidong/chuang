@@ -16,17 +16,19 @@ html(lang="zh-cn")
 				div.close-btn(onclick="cancel()")
 		div.banner.team
 			div.container.horizontal-center
-				div.logo.horizontal-center
 				div.left
 					div.back
 					a(href="/") 返回首页
 				div.right
 					-if(!user)
 						a.signup(onclick="register()") 注册
+						span |
 						a.login(onclick="login()") 登录
 					-else
 						a.signup #{user.username}
+						span |
 						a.login(href="/logout") 退出
+				div.logo.horizontal-center
 		div.team.container.horizontal-center
 			div.member-1.horizontal-center#member-1
 			div.member-2.horizontal-center#member-2
