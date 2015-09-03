@@ -132,14 +132,10 @@ router.get('/detail', function(req, res) {
 									for(var i = 0 ; i< projectFollow.length;i++){
 										if(projectFollow[i].get("isVerify")){
 											collection+=projectFollow[i].get("gradientId").get("money");
-										}
-										if(projectFollow[i].get("isLeader")){
-											leaderMoney = projectFollow[i].get("gradientId").get("money");
+											console.log(projectFollow[i].get("userId").get("avatorUrl"))
 										}
 									}
-									var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
-									collection = parseFloat(collection/10000).toFixed(2);
-									collection = collection.toString()+"万";
+
 									
 									query = new AV.Query(Leader);
 									query.include("userId");
@@ -147,7 +143,11 @@ router.get('/detail', function(req, res) {
 									query.find({
 										success:function(leader){
 											leader = leader[0];
-											res.render('detail',{projectId:projectId,projectFollow:projectFollow,leaderMoney:leaderMoney,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
+											collection+=leader.get("money");
+											var percent = Math.floor((parseInt(collection)/parseInt(project[0].get("amount")))*100);
+											collection = parseFloat(collection/10000).toFixed(2);
+											collection = collection.toString()+"万";
+											res.render('detail',{projectId:projectId,projectFollow:projectFollow,percent:percent,collection:collection,leader:leader,amount:amount,time:time,user:req.session.user,mobilePhoneNumber:mobilePhoneNumber,isFillInfo:isFillInfo,msgLogin:msgLogin,emailLogin:emailLogin});
 										},
 										error:function(data,error){
 

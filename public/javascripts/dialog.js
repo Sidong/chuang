@@ -145,7 +145,7 @@ function loginCheck(){
 		$(".dialog [name='password']").removeClass("wrong");
 		$("#password-empty").remove();
 		$(".dialog button").addClass("disabled");
-		$(".dialog button").text("登陆中...");
+		$(".dialog button").text("登录中...");
 	}
 };
 function phoneCheck(){
@@ -298,15 +298,21 @@ function submitInfo(){
 	if($(".wrong-msg").length>0){
 		return false;
 	}
-	$(".dialog button").addClass("disabled");
-	$(".dialog button").text("提交中...");
 	var id = $(".dialog [name='id']").val();
 	var name = $(".dialog [name='name']").val();
 	var phone = $(".dialog [name='mobilePhone']").val();
-	var status = $(".dialog [name='status']").val();
-	var isForeigner = $(".dialog [name='isForeigner']").val();
-	var requirement = $(".dialog [name='requirement']").val();
-	if(id!=""&&name!=""&&phone!=""){
+	if(id==""||name==""||phone==""){
+		if($("#info-empty").length<=0){
+			$('.dialog button').before("<p class='wrong-msg' id='info-empty'>所填信息不能为空</p>");	
+		}
+		return false;
+	}else{
+		$("#info-empty").remove();
+		$(".dialog button").addClass("disabled");
+		$(".dialog button").text("提交中...");
+		var status = $(".dialog [name='status']").val();
+		var isForeigner = $(".dialog [name='isForeigner']").val();
+		var requirement = $(".dialog [name='requirement']").val();
 		$(".dialog .btn").attr("disabled","disabled");
 		var url = "/fillInfo?id="+id+"&name="+name+"&mobilePhone="+phone+"&status="+status+"&isForeigner="+isForeigner+"&requirement="+requirement;
 		$.ajax({
@@ -322,6 +328,7 @@ function submitInfo(){
 			}
 		})
 	}
+	
 
 }
 function submitSuccess(){

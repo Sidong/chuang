@@ -6,6 +6,7 @@ AV.initialize(config.AvosAppID,config.AvosAppkey);
 var User = AV.Object.extend("_User");
 var Project = AV.Object.extend("Project");
 var ProjectFollow = AV.Object.extend("ProjectFollow");
+var avatorUrls = ["http://7ls0rp.com1.z0.glb.clouddn.com/avator_1.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_2.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_3.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_4.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_5.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_6.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_7.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_8.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_9.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_10.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_11.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_12.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_13.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_14.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_15.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_16.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_17.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_18.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_19.jpg","http://7ls0rp.com1.z0.glb.clouddn.com/avator_20.jpg"]
 router.get('/',function(req,res,next){
 	res.render('index');
 })
@@ -14,11 +15,13 @@ router.get('/register',function(req,res,next){
 	var password = req.query.password;
 	var email = req.query.email;
 	var mobilePhone = req.query.mobilePhone;
-	console.log(mobilePhone);
+	var avatorUrl = avatorUrls[parseInt(20*Math.random())];
+	console.log(avatorUrl);
 	var obj = new User();
 	obj.set("username",username);
 	obj.set("password",password);
 	obj.set("email",email);
+	obj.set("avatorUrl",avatorUrl);
 	if(mobilePhone!=""){
 		obj.set("mobilePhoneNumber",mobilePhone);
 	}
@@ -52,10 +55,10 @@ router.post('/login',function(req,res,next){
 			}else{
 				var username = data[0].get("username");
 				AV.User.logIn(username,password,{
-					success:function(data){
+					success:function(data){	
 						req.session.user = data;
 						req.session.login = null;
-						res.redirect('back');
+						res.redirect('back');					
 					},
 					error:function(data,error){
 						msg.msg = "error";

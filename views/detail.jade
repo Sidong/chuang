@@ -46,7 +46,7 @@ html(lang="zh-cn")
 						p.status 融资中
 						p.percent #{percent}%
 				div.leader
-					p.money #{leaderMoney}
+					p.money #{leader.get("money")}
 					div.avator
 					p.title #{leader.get("userId").get("username")}
 					p.info #{leader.get("identify")}
@@ -142,7 +142,7 @@ html(lang="zh-cn")
 					div.faces
 						-each val,key in projectFollow
 							-var can=true
-							-if(!val.get("isLeader")&&val.get("isVerify"))
+							-if(val.get("isVerify"))
 								-each val1,key1 in projectFollow
 									-if(key1>key)
 										-if(val1.get("userId").get("username")==val.get("userId").get("username"))
@@ -150,7 +150,7 @@ html(lang="zh-cn")
 											-break
 								-if(can)
 									div.member
-										div.avator
+										img.avator(src=val.get("userId").get("avatorUrl"))
 										p #{val.get("userId").get("username")}
 				div.time
 				div.iwant(onclick='toTouZi()')
@@ -184,7 +184,7 @@ html(lang="zh-cn")
 												"位投资人"+
 											"</p>"+
 											"<hr>"+
-											"<p class=text>接受超募，超过目标人数后将作为候补。到达最高募集人数上限2倍的人后停止募集";
+											"<p class=text>接受超募，超过目标人数后将作为候补。到达最高募集人数上限"+gradients[i].times+"倍的人后停止募集";
 							if(gradients[i].updatedAt>=2*gradients[i].number){
 								HTML += "<div class='takein_btn disabled'>我要投资</div>";
 							}else{
