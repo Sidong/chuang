@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="WlliTeam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>创次方 | 首页</title>
+    <link href="./stylesheets/jquery.fullPage.css" rel="stylesheet">
+    <link href="./stylesheets/animate.css" rel="stylesheet">
+    <link href="./stylesheets/main.css" rel="stylesheet">
+    <link href="./stylesheets/dialog.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="dialog">
+      <div class="card">
+        <div onclick="cancel()" class="close-btn"></div>
+      </div>
+    </div>
+    <div class="navbar">
+      <div class="container horizontal-center">
+        <div class="menu"><a onclick="register()">注册</a><span>|</span><a onclick="login()">登录</a>
+        </div>
+      </div>
+      <div class="logo horizontal-center"></div>
+    </div>
+    <div class="indicator">
+      <div data-index="1" class="point active"></div>
+      <div data-index="2" class="point"></div>
+      <div data-index="3" class="point"></div>
+      <div data-index="4" class="point"></div>
+      <div data-index="5" class="point"></div>
+    </div>
+    <div id="fullpage">
+      <div class="section page1">
+        <div class="wrapper horizontal-center">
+          <div class="container horizontal-center">
+            <div class="title1 horizontal-center"></div><a href="/team" target="_blank" class="team-btn horizontal-center"></a>
+            <div class="faces horizontal-center">
+              <div class="face"><img src="./images/img_1.png" data-index="1" class="animated bounceIn">
+                <p class="name">沈堉河</p><img src="./images/field_1.png" class="field">
+              </div>
+              <div class="face"><img src="./images/img_2.png" data-index="2" class="animated bounceIn">
+                <p class="name">陈冰淳</p><img src="./images/field_2.png" class="field">
+              </div>
+              <div class="face"><img src="./images/img_3.png" data-index="3" class="animated bounceIn">
+                <p class="name">许哲霓</p><img src="./images/field_3.png" class="field">
+              </div>
+              <div class="face"><img src="./images/img_4.png" data-index="4" class="animated bounceIn">
+                <p class="name">林臻</p><img src="./images/field_4.png" class="field">
+              </div>
+              <div class="face"><img src="./images/img_5.png" data-index="5" class="animated bounceIn">
+                <p class="name">鲁涵</p><img src="./images/field_5.png" class="field">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container horizontal-center">
+          <div class="support horizontal-center">
+            <div class="thank-you"></div>
+            <div class="info">
+              <ul>
+                <li>投资顾问：09届 金伟娜 中山大学经济学与工商管理学双学士，香港大学经济学硕士，中投证券投资银行总部项目经理</li>
+                <li>法律支持：06届 柯立坤 中国政法大学法学，执业律师</li>
+                <li>会计支持：09届 林妍希 新加坡管理大学会计专业</li>
+                <li>技术支持：09届 黄思东 中山大学软件工程学士，广州唯厘信息科技有限公司项目经理</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="container horizontal-center">
+          <div class="page2 horizontal-center">
+            <div class="title2 horizontal-center"></div>
+            <div class="info">
+              <p>我们正在搭建一个基于汕头市金山中学校友圈的半熟人关系、同时具备融资功能和媒体功能的互联网创业聚合平台；</p>
+              <p>以专业、独到的视角采编报道金山中学校友故事和互联网创业资讯，助你掌握圈子里的优质人脉资源和创业情报；</p>
+              <p>以“互联网股权融资”的形式为优质互联网创业项目和普通用户提供专业的第三方融资平台和服务。</p>
+              <p class="heavy">期待与你一起创造更多！</p>
+            </div>
+            <div class="news-intv-fina horizontal-center">
+              <div class="block"><img src="./images/news.png" data-section="news">
+                <p class="offset-top">多向探索发现</p>
+                <p>紧随互联新潮</p>
+              </div>
+              <div class="block interview"><img src="./images/interview.png" data-section="interview">
+                <p class="offset-top">独家专业解析</p>
+                <p>筛选优质项目</p>
+              </div>
+              <div class="block"><img src="./images/financing.png" data-section="financing">
+                <p class="offset-top">整合多维资源</p>
+                <p>创造次方价值</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section grey-bg">
+        <div class="container horizontal-center">
+          <div class="page3">
+            <div class="three-block horizontal-center">
+              <div class="m100y block"></div>
+              <div class="lingtou block"></div>
+              <div class="shuren block"></div>
+            </div>
+            <div class="title3 horizontal-center"></div><a onclick="return checkLogin()" href="/detail?projectId=55e45cad00b0ded317f1bfac" target="_blank" id="touzi" class="takein-btn horizontal-center"></a>
+            <div class="facebook horizontal-center"></div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="container horizontal-center">
+          <div class="page4">
+            <div class="teacher horizontal-center"></div>
+          </div>
+        </div>
+      </div>
+      <div class="section grey-bg">
+        <div class="container horizontal-center">
+          <div class="page5">
+            <div class="contact horizontal-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./javascripts/jquery.min.js"></script>
+  <script src="./javascripts/jquery.fullPage.min.js"></script>
+  <script src="./javascripts/dialog.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+    	$('.dialog').hide();
+    	$('.face>img').click(function () {
+    		window.location.href = "/team#member-" + $(this).data("index");
+    	});
+    	$('.news-intv-fina img').click(function () {
+    		window.location.href = "/product#" + $(this).data("section");
+    	});
+    	$('#fullpage').fullpage({
+    		afterLoad: function (anchorLink, index) {
+    			$('.point').removeClass('active');
+    			$($('.point')[index - 1]).addClass('active');
+    		},
+    		onLeave: function(index, nextIndex, direction){
+    			var leavingSection = $(this);
+    		}
+    	});
+    	$('.point').click(function () {
+    		$('.point').removeClass('active');
+    		var index = $(this).data('index');
+    		$($('.point')[index - 1]).addClass('active');
+    		$.fn.fullpage.moveTo(index, 0);
+    	});
+    	var msgLogin = "";
+    	if(msgLogin != ""){
+    		if(msgLogin=="error"){
+    			var email = "";
+    			login();
+    			$(".dialog [name='email']").val(email);
+    			$(".dialog [name='password']").addClass("wrong");
+    			$(".link").before("<p class='wrong-msg'>邮箱或密码错误</p>");
+    		}
+    	}
+    	var tan = "";
+    	if(tan=="login"){
+    		login();
+    	}else if(tan=="fillInfo"){
+    		fillInfo();
+    		$(".dialog [name='mobilePhone']").val("");
+    	}else if(tan=="verify"){
+    		submitSuccess();
+    	}
+    });
+    var isFillInfo = ;
+    var isVerify = ;
+    function checkLogin(){
+    	var user = "";
+    	if(user==""){
+    		login();
+    		return false;
+    	}else{
+    		if(!isFillInfo){
+    			fillInfo();
+    			$(".dialog [name='mobilePhone']").val("");
+    			return false;
+    		}else if(!isVerify){
+    			$.ajax({
+    					type:"GET",
+    					url:"/getVerify",
+    					dataType:"json",
+    					success:function(data){
+    						if(data.isVerify){
+    							var touzi = document.getElementById("touzi");
+    							isVerify = data.isVerify;
+    							if(document.createEvent){
+    						        var ev = document.createEvent('HTMLEvents');
+    						        ev.initEvent('click', true, true);
+    						        touzi.dispatchEvent(ev);
+    						    }
+    						    else
+    						        touzi.click();
+    						}else{
+    							submitSuccess();
+    						}
+    					}
+    				});
+    			return false;
+    			
+    		}
+    	}
+    	
+    };
+  </script>
+</html>
