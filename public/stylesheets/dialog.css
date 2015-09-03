@@ -47,18 +47,18 @@
       background-size: cover;
       cursor: pointer; }
     .dialog .card .form {
-      width: 430px;
+      width: 440px;
       margin-top: 50px;
       padding-bottom: 55px;
       margin-left: auto;
       margin-right: auto; }
       .dialog .card .form .form-line {
-        width: 430px;
+        width: 440px;
         height: 40px;
         margin-top: 15px; }
         .dialog .card .form .form-line .label {
           text-align: right;
-          width: 90px;
+          width: 100px;
           height: 40px;
           display: inline-block;
           font-family: "Microsoft YaHei";

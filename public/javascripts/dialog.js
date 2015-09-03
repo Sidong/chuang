@@ -277,7 +277,7 @@ function fillInfo(){
 							"<p>符合其中条件之一的投资者</p>"+
 							"<div class='radio-div'>"+
 								"<div>"+
-									"<input name='requirement' type='radio' value='我的金融融资超过100万' checked=true><span class='radio-text'>我的金融融资超过100万</span>"+
+									"<input name='requirement' type='radio' value='我的金融资产超过100万' checked=true><span class='radio-text'>我的金融资产超过100万</span>"+
 								"</div>"+
 								"<div>"+
 									"<input name='requirement' type='radio' value='我的年收入超过30万'><span class='radio-text'>我的年收入超过30万</span>"+

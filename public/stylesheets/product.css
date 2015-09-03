@@ -22,6 +22,9 @@ body {
   background-image: url("../images/banner_bg.png");
   background-size: cover;
   background-position: 50% 0%; }
+  .banner.team {
+    height: 353px;
+    background-image: url("../images/team_banner_bg.png"); }
   .banner .container {
     position: relative;
     padding-top: 27px; }
