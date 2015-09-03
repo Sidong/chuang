@@ -33,15 +33,15 @@ function register(){
 					"<form>"+
 						"<div class='form-line'>"+
 							"<p class='label'>用户名</p>"+
-							"<input class='input' name='username' type='text' placeholder='您在创次方的名号' required='required' onblur='return registerIsOk(this,\"用户名\")'>"+
+							"<input class='input' name='username' type='text' placeholder='您在创次方的名号' onblur='return usernameCheck()'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>邮 箱</p>"+
-							"<input class='input' name='email' type='text' placeholder='用以登录和获取消息' required='required' onblur='return registerIsOk(this,\"邮箱\")'>"+
+							"<input class='input' name='email' type='text' placeholder='用以登录和获取消息' onblur='return emailCheck()'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>手 机</p>"+
-							"<input class='input' name='mobilePhone' onblur='return phoneCheck()' type='text' placeholder='方便您获取最新消息,选填'>"+
+							"<input class='input' name='mobilePhone' onblur='return phoneCheck(\"register\")' type='text' placeholder='方便您获取最新消息,选填'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>密 码</p>"+
@@ -65,56 +65,92 @@ function registerSuccess(){
 	$('.dialog .card').append(HTML);
 };
 
-function registerIsOk(t,type){
-	var data = $(t).val();
-	if(data=="" && $(document.getElementById(type)).length<=0){
-		$(t).addClass("wrong");
-		$('.dialog button').before("<p class='wrong-msg' id="+type+">请填写您的"+type);
-		return false;
-	}
-	if(data==""){
-		return false;
-	}
-	if(type=="邮箱"){
-		$(t).removeClass("wrong");
-		$(document.getElementById(type)).remove();
-		var reg = new RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/);
-		if(reg.test(data)){
-			$(t).removeClass("wrong");
-			$("#email-form").remove();
-		}else{
-			if($("#email-form").length<=0){
-				$(".dialog [name='email']").addClass("wrong");
-				$('.dialog button').before("<p class='wrong-msg' id='email-form''>您填写的邮箱格式不正确</p>");
-			}
-			return false;
+function usernameCheck(){
+	var username = $(".dialog [name='username']").val();
+	if(username.length>12){
+		if($("#username-form").length<=0){
+			$("dialog [name='username']").addClass("wrong");
+			$('.dialog button').before("<p class='wrong-msg' id='username-form'>用户名不能超过十二个字符</p>");
 		}
+		return false;
 	}
-	var url = "";
-	if(type=="用户名"){
-		url += "/getUsername?username="+data;
-	}else if(type=="邮箱"){
-		url += "/getEmail?email="+data;
+	if(username==""){
+		if($("username-empty").length<=0){
+			$(".dialog [name='username']").addClass("wrong");
+			$('.dialog button').before("<p class='wrong-msg' id='username-empty'>请填写您的用户名</p>");
+		}	
+		return false;
 	}
+	$(".dialog [name='username']").removeClass("wrong");
+	$("#username-empty").remove();
+	$("#username-form").remove();
+	var url = "/getUsername?username="+username
 	$.ajax({
 			type:"GET",
 			url:url,
 			dataType:"json",
 			success:function(data){
-				$(t).removeClass("wrong");
-				$(document.getElementById(type)).remove();
 				if(data.msg=="pass"){
+					$(".dialog [name='username']").removeClass("wrong");
+					$("#username-check").remove();
 					return true;
 				}else if(data.msg=="reject"){
-					$(t).addClass("wrong");
-					$('.dialog button').before("<p class='wrong-msg' id="+type+">您填写的"+type+"已经注册过了,请重新填写</p>");
+					if($("#username-check").length<=0){
+						$(".dialog [name='username']").addClass("wrong");
+						$('.dialog button').before("<p class='wrong-msg' id='username-check'>您填写的用户名已经注册过了,请重新填写</p>");
+					}
+					$(".dialog button").removeClass("disabled");
+					$(".dialog button").text("注册");
 					return false;
-				}else{
-
 				}
 			}
 		});
-};
+
+}
+function emailCheck(){
+	var email = $(".dialog [name='email']").val();
+	if(email==""){
+		if($("#email-empty").length<=0){
+			$(".dialog [name='email']").addClass("wrong");
+			$('.dialog button').before("<p class='wrong-msg' id='email-empty'>请填写您的邮箱</p>");
+		}
+		return false;
+	}
+	$("dialog [name='email'").removeClass("wrong");
+	$("#email-empty").remove();
+	var reg = new RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/);
+	if(reg.test(email)){
+		$(".dialog [name='email']").removeClass("wrong");
+		$("#email-form").remove();
+	}else{
+		if($("#email-form").length<=0){
+			$("dialog [name='email']").addClass("wrong");
+			$('.dialog button').before("<p class='wrong-msg' id='email-form'>填写的邮箱格式不正确</p>");
+		}
+		return false;
+	}
+	var url = "/getEmail?email="+email
+	$.ajax({
+			type:"GET",
+			url:url,
+			dataType:"json",
+			success:function(data){
+				if(data.msg=="pass"){
+					$(".dialog [name='email']").removeClass("wrong");
+					$("#email-check").remove();
+					return true;
+				}else if(data.msg=="reject"){
+					if($("#email-check").length<=0){
+						$(".dialog [name='email']").addClass("wrong");
+						$('.dialog button').before("<p class='wrong-msg' id='email-check'>您填写的邮箱已经注册过了,请重新填写</p>");
+					}
+					$(".dialog button").removeClass("disabled");
+					$(".dialog button").text("注册");
+					return false;
+				}
+			}
+		});
+}
 function loginCheck(){
 	var email = $(".dialog [name='email']").val();
 	var password = $(".dialog [name='password']").val();
@@ -123,6 +159,8 @@ function loginCheck(){
 			if($('#email-empty').length<=0){
 				$(".dialog [name='email']").addClass("wrong");
 				$(".dialog button").before("<p class='wrong-msg' id='email-empty'>邮箱不能为空</p>");
+				$(".dialog button").removeClass("disabled");
+				$(".dialog button").text("登录");
 			}
 			
 		}else{
@@ -133,6 +171,8 @@ function loginCheck(){
 			if($('#password-empty').length<=0){
 				$(".dialog [name='password']").addClass("wrong");
 				$(".dialog button").before("<p class='wrong-msg' id='password-empty'>密码不能为空</p>");
+				$(".dialog button").removeClass("disabled");
+				$(".dialog button").text("登录");
 			}
 		}else{
 			$(".dialog [name='password']").removeClass("wrong");
@@ -148,13 +188,13 @@ function loginCheck(){
 		$(".dialog button").text("登录中...");
 	}
 };
-function phoneCheck(){
+function phoneCheck(type){
 	var mobilePhone = $(".dialog [name=mobilePhone]").val();
 	var reg = new RegExp(/(1[3-9]\d{9}$)/);
 	if(mobilePhone!=""&&!reg.test(mobilePhone)){
 		$("#phone-register").remove();
+		$(".dialog [name='mobilePhone']").addClass("wrong");
 		if($("#phone-form").length<=0){
-			$(".dialog [name='mobilePhone']").addClass("wrong");
 			$('.dialog button').before("<p class='wrong-msg' id='phone-form'>您填写的手机格式不正确</p>");
 		}
 		return false;
@@ -170,8 +210,16 @@ function phoneCheck(){
 			dataType:"json",
 			success:function(data){
 				if(data.msg=='reject'){
-					$(".dialog [name='mobilePhone']").addClass("wrong");
-					$('.dialog button').before("<p class='wrong-msg' id='phone-register'>您填写的手机已经注册过</p>");
+					if($("#phone-register").length<=0){
+						$(".dialog [name='mobilePhone']").addClass("wrong");
+						$('.dialog button').before("<p class='wrong-msg' id='phone-register'>您填写的手机已经注册过</p>");
+					}
+					$(".dialog button").removeClass("disabled");
+					if(type=="register"){
+						$(".dialog button").text("注册");
+					}else{
+						$(".dialog button").text("提交");
+					}
 					return false;
 				}else{
 					$(".dialog [name='mobilePhone']").removeClass("wrong");
@@ -188,6 +236,8 @@ function passwordCheck(){
 		if($("#password-form").length<=0){
 			$(".dialog [name='password']").addClass("wrong");
 			$('.dialog button').before("<p class='wrong-msg' id='password-form'>密码不能为空</p>");
+			$(".dialog button").removeClass("disabled");
+			$(".dialog button").text("注册");
 		}
 		return false;
 	}else if(password.length<6||password.length>12){
@@ -196,6 +246,8 @@ function passwordCheck(){
 			$("#password-form").remove();
 			$(".dialog [name='password']").addClass("wrong");
 			$('.dialog button').before("<p class='wrong-msg' id='password-length'>密码长度不符合6-12位</p>");
+			$(".dialog button").removeClass("disabled");
+			$(".dialog button").text("注册");
 		}
 		return false;
 	}else{
@@ -206,6 +258,10 @@ function passwordCheck(){
 	}
 }
 function registerCheck(){
+	usernameCheck();
+	emailCheck();
+	phoneCheck("register");
+	passwordCheck();
 	if($(".wrong-msg").length>0){
 		return false;
 	}
@@ -223,6 +279,7 @@ function registerCheck(){
 			success:function(data){
 				if(data.msg=="success"){
 					registerSuccess();
+					location.reload();
 					return false;
 				}
 			}
@@ -231,17 +288,20 @@ function registerCheck(){
 	
 };
 function IDCheck(){
-	var reg = new RegExp(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/);
 	var id = $(".dialog [name='id']").val()
+	var reg = new RegExp(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/);
 	if(id!=""){
-		if(!reg.test(id)&&$("#id-form").length<=0){
-			$(".dialog [name='id']").addClass("wrong");
-			$('.dialog button').before("<p class='wrong-msg' id='id-form'>您填写的身份证号码格式不正确</p>");
+		if(!reg.test(id)){
+			if($("#id-form").length<=0){
+				$(".dialog [name='id']").addClass("wrong");
+				$('.dialog button').before("<p class='wrong-msg' id='id-form'>您填写的身份证号码格式不正确</p>");
+			}
 		}else{
 			$(".dialog [name='id']").removeClass("wrong");
 			$("#id-form").remove();
 		}
 	}
+	return true;
 };
 function fillInfo(){
 	$('.dialog .card .close-btn').nextAll().remove();
@@ -252,15 +312,15 @@ function fillInfo(){
 					"<form>"+
 						"<div class='form-line'>"+
 							"<p class='label'>真实姓名</p>"+
-							"<input class='input' name='name' type='text' required='required' placeholder='请填写您的真实姓名'>"+
+							"<input class='input' name='name' type='text' placeholder='请填写您的真实姓名'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>身份证号码</p>"+
-							"<input class='input' name='id' type='text' required='required' onblur='return IDCheck()' placeholder='请填写您的身份证号码'>"+
+							"<input class='input' name='id' type='text' placeholder='请填写您的身份证号码'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>手机号码</p>"+
-							"<input class='input' name='mobilePhone' type='text' required='required' onblur='return phoneCheck()' placeholder='请填写您的手机号码'>"+
+							"<input class='input' name='mobilePhone' type='text' placeholder='请填写您的手机号码'>"+
 						"</div>"+
 						"<div class='form-line2'>"+
 							"<p class='label'>投资身份</p>"+
@@ -295,41 +355,68 @@ function fillInfo(){
 	$('.dialog').fadeIn();
 };
 function submitInfo(){
-	if($(".wrong-msg").length>0){
-		return false;
-	}
-	var id = $(".dialog [name='id']").val();
 	var name = $(".dialog [name='name']").val();
 	var phone = $(".dialog [name='mobilePhone']").val();
-	if(id==""||name==""||phone==""){
+	var id = $(".dialog [name='id']").val();
+	if(phone==""){
+		$(".dialog [name='mobilePhone']").addClass("wrong");
 		if($("#info-empty").length<=0){
 			$('.dialog button').before("<p class='wrong-msg' id='info-empty'>所填信息不能为空</p>");	
 		}
-		return false;
 	}else{
+		$(".dialog [name='mobilePhone']").removeClass("wrong");
 		$("#info-empty").remove();
-		$(".dialog button").addClass("disabled");
-		$(".dialog button").text("提交中...");
-		var status = $(".dialog [name='status']").val();
-		var isForeigner = $(".dialog [name='isForeigner']").val();
-		var requirement = $(".dialog [name='requirement']").val();
-		$(".dialog .btn").attr("disabled","disabled");
-		var url = "/fillInfo?id="+id+"&name="+name+"&mobilePhone="+phone+"&status="+status+"&isForeigner="+isForeigner+"&requirement="+requirement;
-		$.ajax({
-			type:"GET",
-			url:url,
-			dataType:"json",
-			success:function(data){
-				if(data.msg=="success"){
-					submitSuccess();
-					isFillInfo = true;
-					return true;
-				}
-			}
-		})
+		phoneCheck("fillInfo");
 	}
-	
-
+	if(name==""){
+		$(".dialog [name='name']").addClass("wrong");
+		if($("#info-empty").length<=0){
+			$(".dialog button").before("<p class='wrong-msg' id='info-empty'>所填信息不能为空</p>");
+		}
+	}else{
+		$(".dialog [name='name']").removeClass("wrong");
+		if(phone!=""){
+			$("#info-empty").remove();
+		}
+		
+	}
+	if(id==""){
+		$(".dialog [name='id']").addClass("wrong");
+		if($("#info-empty").length<=0){
+			$(".dialog button").before("<p class='wrong-msg' id='info-empty'>所填信息不能为空</p>");
+		}
+	}
+	if(id!=""){
+		$(".dialog [name='id']").removeClass("wrong");
+		if(phone!=""&&name!=""){
+			$("#info-empty").remove();
+		}
+		IDCheck();
+	}
+	if($(".wrong-msg").length>0){
+		return false;
+	}
+	$("#info-empty").remove();
+	phoneCheck("fillInfo");
+	$(".dialog button").addClass("disabled");
+	$(".dialog button").text("提交中...");
+	var status = $(".dialog [name='status']").val();
+	var isForeigner = $(".dialog [name='isForeigner']").val();
+	var requirement = $(".dialog [name='requirement']").val();
+	$(".dialog .btn").attr("disabled","disabled");
+	var url = "/fillInfo?id="+id+"&name="+name+"&mobilePhone="+phone+"&status="+status+"&isForeigner="+isForeigner+"&requirement="+requirement;
+	$.ajax({
+		type:"GET",
+		url:url,
+		dataType:"json",
+		success:function(data){
+			if(data.msg=="success"){
+				submitSuccess();
+				isFillInfo = true;
+				return true;
+			}
+		}
+	})
 }
 function submitSuccess(){
 	$('.dialog .card').removeClass("up-offset");
