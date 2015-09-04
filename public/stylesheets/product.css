@@ -31,6 +31,7 @@ body {
     position: relative;
     padding-top: 27px; }
     .banner .container .logo {
+      display: block;
       width: 76px;
       height: 94px;
       background-image: url("../images/logo.png");
