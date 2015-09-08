@@ -115,6 +115,13 @@ html(lang="zh-cn")
 	script(src='./javascripts/jquery.fullPage.min.js')
 	script(src='./javascripts/dialog.js')
 	script(type='text/javascript').
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "http://hm.baidu.com/hm.js?d6aaf7be102ff17c22140c30493ccb83";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
 		$(document).ready(function () {
 			$('.dialog').hide();
 			$('.face>img').click(function () {
@@ -180,12 +187,12 @@ html(lang="zh-cn")
 									var touzi = document.getElementById("touzi");
 									isVerify = data.isVerify;
 									if(document.createEvent){
-								        var ev = document.createEvent('HTMLEvents');
-								        ev.initEvent('click', true, true);
-								        touzi.dispatchEvent(ev);
-								    }
-								    else
-								        touzi.click();
+										var ev = document.createEvent('HTMLEvents');
+										ev.initEvent('click', true, true);
+										touzi.dispatchEvent(ev);
+									}
+									else
+										touzi.click();
 								}else{
 									submitSuccess();
 								}
