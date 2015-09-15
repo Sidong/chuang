@@ -41,7 +41,7 @@ function register(){
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>手 机</p>"+
-							"<input class='input' name='mobilePhone' type='text' placeholder='方便您获取最新消息,选填'>"+
+							"<input class='input' name='mobilePhone' type='text' placeholder='方便您获取最新消息'>"+
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>密 码</p>"+
@@ -142,10 +142,20 @@ function loginCheck(){
 	}
 };
 
-function phoneCheck(type){
+function phoneCheck(){
 	var mobilePhone = $(".dialog [name=mobilePhone]").val();
 	var reg = new RegExp(/(1[3-9]\d{9}$)/);
-	if(mobilePhone!=""&&!reg.test(mobilePhone)){
+	if(mobilePhone==""){
+		$("#phone-register").remove();
+		$("#phone-form").remove();
+		$(".dialog [name='mobilePhone']").addClass("wrong");
+		if($("#phone-empty").length<=0){
+			$(".dialog button").before("<p class='wrong-msg' id='phone-empty'>手机号码不能为空</p>")
+		}
+
+	}
+	else if(mobilePhone!=""&&!reg.test(mobilePhone)){
+		$("#phone-empty").remove();
 		$("#phone-register").remove();
 		$(".dialog [name='mobilePhone']").addClass("wrong");
 		if($("#phone-form").length<=0){
@@ -155,6 +165,7 @@ function phoneCheck(type){
 	}else{
 		$(".dialog [name='mobilePhone']").removeClass("wrong");
 		$("#phone-form").remove();
+		$("#phone-empty").remove();
 		return true;
 	}
 };
@@ -186,7 +197,7 @@ function passwordCheck(){
 	}
 }
 function registerCheck(){
-	if(!usernameCheck()||!emailCheck()||!phoneCheck("register")||!passwordCheck()){
+	if(!usernameCheck()||!emailCheck()||!phoneCheck()||!passwordCheck()){
 		return false;
 	}
 	var url = "/getUsername?username="+$(".dialog [name='username']").val();
@@ -328,7 +339,7 @@ function fillInfo(){
 						"</div>"+
 						"<div class='form-line'>"+
 							"<p class='label'>手机号码</p>"+
-							"<input class='input' name='mobilePhone' type='text' placeholder='请填写您的手机号码'>"+
+							"<input class='input' name='mobilePhone' disabled=true type='text'>"+
 						"</div>"+
 						"<div class='form-line2'>"+
 							"<p class='label'>投资身份</p>"+
@@ -364,17 +375,7 @@ function fillInfo(){
 };
 function submitInfo(){
 	var name = $(".dialog [name='name']").val();
-	var phone = $(".dialog [name='mobilePhone']").val();
 	var id = $(".dialog [name='id']").val();
-	if(phone==""){
-		$(".dialog [name='mobilePhone']").addClass("wrong");
-		if($("#info-empty").length<=0){
-			$('.dialog button').before("<p class='wrong-msg' id='info-empty'>所填信息不能为空</p>");	
-		}
-	}else{
-		$(".dialog [name='mobilePhone']").removeClass("wrong");
-		phoneCheck("fillInfo");
-	}
 	if(name==""){
 		$(".dialog [name='name']").addClass("wrong");
 		if($("#info-empty").length<=0){
@@ -392,49 +393,30 @@ function submitInfo(){
 		$(".dialog [name='id']").removeClass("wrong");
 		IDCheck();
 	}
-	if(name!=""&&id!=""&&phone!=""){
+	if(name!=""&&id!=""){
 		$("#info-empty").remove();
-		var url = "/getPhone?mobilePhone="+phone;
+		if($(".wrong-msg").length>0){
+			return false;
+		}
+		$(".dialog button").addClass("disabled");
+		$(".dialog button").text("提交中...");
+		var status = $(".dialog [name='status']").val();
+		var isForeigner = $(".dialog [name='isForeigner']").val();
+		var requirement = $(".dialog [name='requirement']").val();
+		$(".dialog .btn").attr("disabled","disabled");
+		url = "/fillInfo?id="+id+"&name="+name+"&status="+status+"&isForeigner="+isForeigner+"&requirement="+requirement;
 		$.ajax({
-			url:url,
 			type:"GET",
+			url:url,
 			dataType:"json",
 			success:function(data){
-				if(data.msg=='reject'){
-					if($("#phone-register").length<=0){
-						$(".dialog [name='mobilePhone']").addClass("wrong");
-						$('.dialog button').before("<p class='wrong-msg' id='phone-register'>您填写的手机已经注册过</p>");
-					}
-					$(".dialog button").removeClass("disabled");
-					$(".dialog button").text("注册");
-				}else{
-					$(".dialog [name='mobilePhone']").removeClass("wrong");
-					$("#phone-register").remove();
+				if(data.msg=="success"){
+					submitSuccess();
+					isFillInfo = true;
+					return true;
 				}
-				if($(".wrong-msg").length>0){
-					return false;
-				}
-				$(".dialog button").addClass("disabled");
-				$(".dialog button").text("提交中...");
-				var status = $(".dialog [name='status']").val();
-				var isForeigner = $(".dialog [name='isForeigner']").val();
-				var requirement = $(".dialog [name='requirement']").val();
-				$(".dialog .btn").attr("disabled","disabled");
-				url = "/fillInfo?id="+id+"&name="+name+"&mobilePhone="+phone+"&status="+status+"&isForeigner="+isForeigner+"&requirement="+requirement;
-				$.ajax({
-					type:"GET",
-					url:url,
-					dataType:"json",
-					success:function(data){
-						if(data.msg=="success"){
-							submitSuccess();
-							isFillInfo = true;
-							return true;
-						}
-					}
-				})
 			}
-		});
+		})
 	}
 	return false;
 	

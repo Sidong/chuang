@@ -101,7 +101,6 @@ router.get('/logout',function(req,res,next){
 router.get('/fillInfo',function(req,res,next){
 	var name = req.query.name;
 	var id = req.query.id;
-	var mobilePhone = req.query.mobilePhone;
 	var status = req.query.status;
 	var isForeigner = req.query.isForeigner;
 	isForeigner = isForeigner ==0?false:true
@@ -111,7 +110,6 @@ router.get('/fillInfo',function(req,res,next){
 	user.set("status",status);
 	user.set("isForeigner",isForeigner);
 	user.set("requirement",requirement);
-	user.set("mobilePhoneNumber",mobilePhone);
 	user.set("name",name);
 	user.save(null,{
 		success:function(data){
